@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DentiSys.Data
+namespace DRAKaysaResende.Data
 {
     public class DentiSysDataContext : DbContext
     {
