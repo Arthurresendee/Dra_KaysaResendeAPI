@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DRAKaysaResende.Models
 {
@@ -12,8 +13,9 @@ namespace DRAKaysaResende.Models
         public string? Cidade { get; set; }
         public string? Rua { get; set; }
         public string? Numero { get; set; }
-
+        [JsonIgnore]
         public Dentista? Dentista { get; set;}
+        [JsonIgnore]
         public Paciente? Paciente { get; set;}
     }
     

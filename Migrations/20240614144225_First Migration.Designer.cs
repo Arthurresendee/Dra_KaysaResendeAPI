@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DRAKaysaResende.Migrations
 {
-    [DbContext(typeof(DentiSysDataContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20240614144225_First Migration")]
     partial class FirstMigration
     {

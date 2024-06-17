@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DRAKaysaResende.Migrations
 {
-    [DbContext(typeof(DentiSysDataContext))]
+    [DbContext(typeof(DataContext))]
     partial class DentiSysDataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

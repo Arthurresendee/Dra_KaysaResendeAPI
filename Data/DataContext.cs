@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DRAKaysaResende.Data
 {
-    public class DentiSysDataContext : DbContext
+    public class DataContext : DbContext
     {
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Dentista> Dentistas { get; set; }
