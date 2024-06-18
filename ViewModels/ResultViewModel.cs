@@ -25,5 +25,11 @@
         {
             Errors.Add(error);
         }
+
+        public ResultViewModel(T data, string errors)
+        {
+            Data = data;
+            Errors.Add(errors);
+        }
     }
 }

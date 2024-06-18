@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DRAKaysaResende.Data;
 using DRAKaysaResende.Models;
 using DRAKaysa.ViewModels;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DRAKaysa.Controllers
 {
@@ -16,10 +17,12 @@ namespace DRAKaysa.Controllers
     public class EnderecoController : ControllerBase
     {
         private readonly DataContext _context;
+        private List<Endereco> listaDeEndereco;
 
         public EnderecoController(DataContext context)
         {
             _context = context;
+            listaDeEndereco = new List<Endereco>();
         }
 
         // GET: api/Endereco
@@ -29,9 +32,9 @@ namespace DRAKaysa.Controllers
             try
             {
                 var enderecos = _context.Enderecos.ToList();
-                if (enderecos.Count() == 0)
+                if (enderecos.IsNullOrEmpty())
                 {
-                    return NotFound(new ResultViewModel<List<Endereco>>("Nenhum endereco encontrado."));
+                    return NotFound(new ResultViewModel<List<Endereco>>(listaDeEndereco, "Nenhum endereco encontrado."));
                 }
                 return Ok(new ResultViewModel<List<Endereco>>(enderecos));
             }
@@ -50,16 +53,15 @@ namespace DRAKaysa.Controllers
                 var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.Id == id);
                 if (endereco == null)
                 {
-                    return NotFound(new ResultViewModel<List<Endereco>>("Nenhum endereco encontrado."));
+                    return NotFound(new ResultViewModel<List<Endereco>>(listaDeEndereco,"nenhum endereco encontrado"));
                 }
-
-                return endereco;
+                listaDeEndereco.Add(endereco);
+                return Ok(new ResultViewModel<List<Endereco>>(listaDeEndereco));
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
-            
         }
 
         //api/Endereco/5
