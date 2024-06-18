@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DRAKaysaResende.Data;
 using DRAKaysaResende.Models;
+using DRAKaysa.ViewModels;
 
 namespace DRAKaysa.Controllers
 {
@@ -23,31 +24,42 @@ namespace DRAKaysa.Controllers
 
         // GET: api/Endereco
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Endereco>>> GetEnderecos()
+        public async Task<ActionResult<IEnumerable<Paciente>>> GetAll()
         {
-          if (_context.Enderecos == null)
-          {
-              return NotFound();
-          }
-            return await _context.Enderecos.ToListAsync();
+            try
+            {
+                var enderecos = _context.Enderecos.ToList();
+                if (enderecos.Count() == 0)
+                {
+                    return NotFound(new ResultViewModel<List<Endereco>>("Nenhum endereco encontrado."));
+                }
+                return Ok(new ResultViewModel<List<Endereco>>(enderecos));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResultViewModel<Endereco>($"{ex.Message}"));
+            }
         }
 
         //api/Endereco/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Endereco>> GetEndereco(int id)
+        public async Task<ActionResult<Endereco>> GetById(int id)
         {
-          if (_context.Enderecos == null)
-          {
-              return NotFound();
-          }
-            var endereco = await _context.Enderecos.FindAsync(id);
-
-            if (endereco == null)
+            try
             {
-                return NotFound();
-            }
+                var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.Id == id);
+                if (endereco == null)
+                {
+                    return NotFound(new ResultViewModel<List<Endereco>>("Nenhum endereco encontrado."));
+                }
 
-            return endereco;
+                return endereco;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
         }
 
         //api/Endereco/5
@@ -84,10 +96,10 @@ namespace DRAKaysa.Controllers
         [HttpPost]
         public async Task<ActionResult<Endereco>> PostEndereco(Endereco endereco)
         {
-          if (_context.Enderecos == null)
-          {
-              return Problem("Entity set 'DentiSysDataContext.Enderecos'  is null.");
-          }
+            if (_context.Enderecos == null)
+            {
+                return Problem("Entity set 'DentiSysDataContext.Enderecos'  is null.");
+            }
             _context.Enderecos.Add(endereco);
             await _context.SaveChangesAsync();
 
