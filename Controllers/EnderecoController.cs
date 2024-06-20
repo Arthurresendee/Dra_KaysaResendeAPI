@@ -9,6 +9,7 @@ using DRAKaysaResende.Data;
 using DRAKaysaResende.Models;
 using DRAKaysa.ViewModels;
 using Microsoft.IdentityModel.Tokens;
+using DRAKaysa.Services;
 
 namespace DRAKaysa.Controllers
 {
@@ -60,7 +61,28 @@ namespace DRAKaysa.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, new ResultViewModel<List<Endereco>>(listaDeEndereco,ex.Message));
+            }
+        }
+
+        //api/Endereco
+        [HttpPost]
+        public async Task<ActionResult<Endereco>> Post([FromBody] Endereco endereco)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return StatusCode(500,new ResultViewModel<Endereco>(ModelState.GetErrors()));
+
+                await _context.Enderecos.AddAsync(endereco);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetEndereco", new { id = endereco.Id }, endereco);
+
+            }
+            catch(Exception ex)
+            {
+                throw;
+                //return StatusCode(500, new ResultViewModel<List<Endereco>>(listaDeEndereco, ex.Message));
             }
         }
 
@@ -94,19 +116,7 @@ namespace DRAKaysa.Controllers
             return NoContent();
         }
 
-        //api/Endereco
-        [HttpPost]
-        public async Task<ActionResult<Endereco>> PostEndereco(Endereco endereco)
-        {
-            if (_context.Enderecos == null)
-            {
-                return Problem("Entity set 'DentiSysDataContext.Enderecos'  is null.");
-            }
-            _context.Enderecos.Add(endereco);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEndereco", new { id = endereco.Id }, endereco);
-        }
+        
 
         //api/Endereco/5
         [HttpDelete("{id}")]
