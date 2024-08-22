@@ -1,0 +1,2 @@
+﻿Arrumar o retorno dos erros nas requisições.
+Realizar a criação dos DTOs

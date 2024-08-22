@@ -4,6 +4,7 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysaResende.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DentiSysDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240822174304_Alterando tamanho do campo de acesso de usuario")]
+    partial class Alterandotamanhodocampodeacessodeusuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace DRAKaysaResende.Migrations
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(10)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Senha");
 
@@ -302,7 +305,7 @@ namespace DRAKaysaResende.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("SMALLDATETIME")
-                        .HasDefaultValue(new DateTime(2024, 8, 22, 14, 45, 46, 185, DateTimeKind.Local).AddTicks(4876))
+                        .HasDefaultValue(new DateTime(2024, 8, 22, 14, 43, 4, 586, DateTimeKind.Local).AddTicks(4195))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

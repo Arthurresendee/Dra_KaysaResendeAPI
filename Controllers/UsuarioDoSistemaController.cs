@@ -23,11 +23,11 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UsuarioDoSistema>>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
             try
             {
-                var usuarios = _context.UsariosdoSistema.ToList();
+                var usuarios = _context.UsuariosdoSistema.ToList();
                 if (usuarios.IsNullOrEmpty())
                 {
                     return NotFound("Não foi encontrado nenhum usuário");
@@ -41,14 +41,14 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Endereco>> GetById(int id)
+        public async Task<ActionResult> GetById(int id)
         {
             try
             {
-                var usuario = await _context.UsariosdoSistema.FirstOrDefaultAsync(x => x.Id == id);
+                var usuario = await _context.UsuariosdoSistema.FirstOrDefaultAsync(x => x.Id == id);
                 if (usuario == null)
                 {
-                    return NotFound("nenhum endereco encontrado");
+                    return NotFound("Usuario não encontrado");
                 }
                 return Ok(usuario);
             }
@@ -56,6 +56,67 @@ namespace DRAKaysa.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] UsuarioDoSistema usuario)
+        {
+            try
+            {
+                await _context.UsuariosdoSistema.AddAsync(usuario);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetById", new { id = usuario.Id }, usuario);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]UsuarioDoSistema usuario)
+        {
+            var user = await _context.UsuariosdoSistema.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound("Usuário não encontrado.");
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var user = await _context.UsuariosdoSistema.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.UsuariosdoSistema.Remove(user);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
         }
     }
 }

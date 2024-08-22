@@ -21,7 +21,7 @@ namespace DRAKaysaResende.Data
         public DbSet<Plano> Planos { get; set; }
         public DbSet<PacientePlano> PacientePlanos { get; set; }
         public DbSet<PacienteProcedimento> PacienteProcedimentos { get; set; }
-        public DbSet<UsuarioDoSistema> UsariosdoSistema { get; set; }
+        public DbSet<UsuarioDoSistema> UsuariosdoSistema { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

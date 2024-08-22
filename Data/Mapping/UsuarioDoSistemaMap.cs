@@ -26,13 +26,13 @@ namespace DRAKaysa.Data.Mapping
             builder.Property(e => e.AcessoDeUsuario)
                 .HasColumnName("AcessoDeUsuario")
                 .HasColumnType("nvarchar")
-                .HasMaxLength(7)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(e => e.Senha)
                 .HasColumnName("Senha")
                 .HasColumnType("nvarchar")
-                .HasMaxLength(10)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(e => e.NomeCompleto)
