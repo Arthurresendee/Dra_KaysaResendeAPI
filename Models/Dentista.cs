@@ -12,7 +12,6 @@
         public string? NumeroDeTelefone { get; set; }
         public string? Especializacao { get; set; }
         public string? NumeroDeRegistro { get; set; } //Numero de registro emitido pela pregadora do curso superior
-
         public int IdEndereco { get; set; }
         public Endereco Endereco { get; set; }
     }

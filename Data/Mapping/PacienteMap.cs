@@ -63,11 +63,6 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnType("nvarchar")
                 .HasMaxLength(15)
                 .IsRequired(false);
-
-            builder.HasOne(x => x.Endereco)
-                .WithOne(x => x.Paciente)
-                .HasForeignKey<Paciente>(x => x.IdEndereco)
-                .IsRequired();
         }
     }
 }

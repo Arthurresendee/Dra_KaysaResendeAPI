@@ -1,4 +1,6 @@
-﻿using DRAKaysaResende.Data.Mapping;
+﻿using DRAKaysa.Data.Mapping;
+using DRAKaysa.Models;
+using DRAKaysaResende.Data.Mapping;
 using DRAKaysaResende.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,6 +21,7 @@ namespace DRAKaysaResende.Data
         public DbSet<Plano> Planos { get; set; }
         public DbSet<PacientePlano> PacientePlanos { get; set; }
         public DbSet<PacienteProcedimento> PacienteProcedimentos { get; set; }
+        public DbSet<UsuarioDoSistema> UsariosdoSistema { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +38,7 @@ namespace DRAKaysaResende.Data
             modelBuilder.ApplyConfiguration(new PlanoMap());
             modelBuilder.ApplyConfiguration(new PacientePlanoMap());
             modelBuilder.ApplyConfiguration(new PacienteProcedimentoMap());
+            modelBuilder.ApplyConfiguration(new UsuarioDoSistemaMap());
         }
     }
 }

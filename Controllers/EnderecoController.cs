@@ -71,22 +71,19 @@ namespace DRAKaysa.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return StatusCode(500,new ResultViewModel<Endereco>(ModelState.GetErrors()));
-
                 await _context.Enderecos.AddAsync(endereco);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetEndereco", new { id = endereco.Id }, endereco);
+                return CreatedAtAction("GetById", new { id = endereco.Id }, endereco);
 
             }
             catch(Exception ex)
             {
-                throw;
-                //return StatusCode(500, new ResultViewModel<List<Endereco>>(listaDeEndereco, ex.Message));
+                return StatusCode(500, new ResultViewModel<List<Endereco>>(listaDeEndereco, ex.Message));
             }
         }
 
-        //api/Endereco/5
+        //api/Endereco/id
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEndereco(int id, Endereco endereco)
         {

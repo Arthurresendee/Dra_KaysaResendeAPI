@@ -78,10 +78,6 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnType("INT")
                 .IsRequired();
 
-            builder.HasOne(x => x.Endereco)
-                .WithOne(x => x.Dentista)
-                .HasForeignKey<Dentista>(x => x.IdEndereco)
-                .IsRequired();
         }
     }
 }
