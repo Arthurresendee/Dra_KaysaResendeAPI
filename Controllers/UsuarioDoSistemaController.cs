@@ -71,7 +71,7 @@ namespace DRAKaysa.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest("algo deu errado");
             }
         }
 

@@ -36,24 +36,11 @@ namespace DRAKaysaResende.Migrations
                         .HasColumnType("nvarchar")
                         .HasColumnName("AcessoDeUsuario");
 
-                    b.Property<string>("NomeCompleto")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("NomeCompleto");
-
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Senha");
-
-                    b.Property<int?>("TipoDeSexo")
-                        .HasColumnType("INT")
-                        .HasColumnName("TipoDeSexo");
-
-                    b.Property<int?>("TipoDeUsuario")
-                        .HasColumnType("INT")
-                        .HasColumnName("TipoDeUsuario");
 
                     b.HasKey("Id");
 
@@ -302,7 +289,7 @@ namespace DRAKaysaResende.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("SMALLDATETIME")
-                        .HasDefaultValue(new DateTime(2024, 8, 22, 14, 45, 46, 185, DateTimeKind.Local).AddTicks(4876))
+                        .HasDefaultValue(new DateTime(2024, 8, 22, 23, 45, 18, 855, DateTimeKind.Local).AddTicks(7936))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
