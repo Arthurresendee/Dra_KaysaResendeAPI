@@ -58,6 +58,24 @@ namespace DRAKaysa.Controllers
             }
         }
 
+        [HttpGet("user/{user}")]
+        public async Task<ActionResult> GetByName(string user)
+        {
+            try
+            {
+                var usuario = await _context.UsuariosdoSistema.FirstOrDefaultAsync(x => x.AcessoDeUsuario == user);
+                if (usuario == null)
+                {
+                    return NotFound("Usuario não encontrado");
+                }
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UsuarioDoSistema usuario)
         {
