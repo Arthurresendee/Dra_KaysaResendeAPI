@@ -4,19 +4,16 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DRAKaysaResende.Migrations
+namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240820041421_alterando nome da tabela endereco")]
-    partial class alterandonomedatabelaendereco
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +22,47 @@ namespace DRAKaysaResende.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DRAKaysa.Models.UsuarioDoSistema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AcessoDeUsuario")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("AcessoDeUsuario");
+
+                    b.Property<string>("NomeCompleto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("NomeCompleto");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Senha");
+
+                    b.Property<int?>("TipoDeSexo")
+                        .HasColumnType("INT")
+                        .HasColumnName("TipoDeSexo");
+
+                    b.Property<int?>("TipoDeUsuario")
+                        .HasColumnType("INT")
+                        .HasColumnName("TipoDeUsuario");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "AcessoDeUsuario" }, "IX_UsuarioDoSistema_AcessoDeUsuario")
+                        .IsUnique();
+
+                    b.ToTable("UsuariosDoSistema", (string)null);
+                });
+
             modelBuilder.Entity("DRAKaysaResende.Models.Dentista", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +70,9 @@ namespace DRAKaysaResende.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CPF")
                         .ValueGeneratedOnAdd()
@@ -101,6 +142,12 @@ namespace DRAKaysaResende.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Bairro");
+
                     b.Property<string>("CEP")
                         .IsRequired()
                         .HasMaxLength(8)
@@ -116,16 +163,6 @@ namespace DRAKaysaResende.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Estado");
-
-                    b.Property<string>("Numero")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("Numero");
-
-                    b.Property<string>("Pais")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("Pais");
 
                     b.Property<string>("Rua")
                         .HasMaxLength(100)
@@ -264,7 +301,7 @@ namespace DRAKaysaResende.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("SMALLDATETIME")
-                        .HasDefaultValue(new DateTime(2024, 8, 20, 1, 14, 21, 282, DateTimeKind.Local).AddTicks(4047))
+                        .HasDefaultValue(new DateTime(2024, 8, 27, 5, 11, 27, 721, DateTimeKind.Local).AddTicks(567))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

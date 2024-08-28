@@ -27,7 +27,7 @@ namespace DRAKaysa.Controllers
         {
             try
             {
-                var usuarios = _context.UsuariosdoSistema.ToList();
+                var usuarios = await _context.UsuariosdoSistema.ToListAsync();
                 if (usuarios.IsNullOrEmpty())
                 {
                     return NotFound("Não foi encontrado nenhum usuário");
@@ -58,24 +58,6 @@ namespace DRAKaysa.Controllers
             }
         }
 
-        [HttpGet("user/{user}")]
-        public async Task<ActionResult> GetByName(string user)
-        {
-            try
-            {
-                var usuario = await _context.UsuariosdoSistema.FirstOrDefaultAsync(x => x.AcessoDeUsuario == user);
-                if (usuario == null)
-                {
-                    return NotFound("Usuario não encontrado");
-                }
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UsuarioDoSistema usuario)
         {
@@ -89,18 +71,24 @@ namespace DRAKaysa.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("algo deu errado");
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]UsuarioDoSistema usuario)
+        public async Task<IActionResult> Put(int id, [FromBody] UsuarioDoSistema usuario)
         {
             var user = await _context.UsuariosdoSistema.FindAsync(id);
             if (user == null)
             {
                 return NotFound("Usuário não encontrado.");
             }
+
+            user.TipoDeUsuario = usuario.TipoDeUsuario;
+            user.AcessoDeUsuario = usuario.AcessoDeUsuario;
+            user.Senha = usuario.Senha;
+            user.NomeCompleto = usuario.NomeCompleto;
+            user.TipoDeSexo = usuario.TipoDeSexo;
 
             try
             {
@@ -135,6 +123,24 @@ namespace DRAKaysa.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("user/{user}")]
+        public async Task<ActionResult> GetByUser(string user)
+        {
+            try
+            {
+                var usuario = await _context.UsuariosdoSistema.FirstOrDefaultAsync(x => x.AcessoDeUsuario == user);
+                if (usuario == null)
+                {
+                    return NotFound("Usuario não encontrado");
+                }
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

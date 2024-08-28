@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DRAKaysaResende.Migrations
+namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240818174436_removendo as propriedade de dentista e paciente de endereco")]
-    partial class removendoaspropriedadededentistaepacientedeendereco
+    [Migration("20240827081127_teste")]
+    partial class teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,47 @@ namespace DRAKaysaResende.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DRAKaysa.Models.UsuarioDoSistema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AcessoDeUsuario")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("AcessoDeUsuario");
+
+                    b.Property<string>("NomeCompleto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("NomeCompleto");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Senha");
+
+                    b.Property<int?>("TipoDeSexo")
+                        .HasColumnType("INT")
+                        .HasColumnName("TipoDeSexo");
+
+                    b.Property<int?>("TipoDeUsuario")
+                        .HasColumnType("INT")
+                        .HasColumnName("TipoDeUsuario");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "AcessoDeUsuario" }, "IX_UsuarioDoSistema_AcessoDeUsuario")
+                        .IsUnique();
+
+                    b.ToTable("UsuariosDoSistema", (string)null);
+                });
+
             modelBuilder.Entity("DRAKaysaResende.Models.Dentista", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +73,9 @@ namespace DRAKaysaResende.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CPF")
                         .ValueGeneratedOnAdd()
@@ -101,6 +145,12 @@ namespace DRAKaysaResende.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Bairro");
+
                     b.Property<string>("CEP")
                         .IsRequired()
                         .HasMaxLength(8)
@@ -117,16 +167,6 @@ namespace DRAKaysaResende.Migrations
                         .HasColumnType("nvarchar")
                         .HasColumnName("Estado");
 
-                    b.Property<string>("Numero")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("Numero");
-
-                    b.Property<string>("Pais")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("Pais");
-
                     b.Property<string>("Rua")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar")
@@ -137,7 +177,7 @@ namespace DRAKaysaResende.Migrations
                     b.HasIndex(new[] { "CEP" }, "IX_Endereco_CEP")
                         .IsUnique();
 
-                    b.ToTable("Endereco", (string)null);
+                    b.ToTable("Enderecos", (string)null);
                 });
 
             modelBuilder.Entity("DRAKaysaResende.Models.Paciente", b =>
@@ -264,7 +304,7 @@ namespace DRAKaysaResende.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("SMALLDATETIME")
-                        .HasDefaultValue(new DateTime(2024, 8, 18, 14, 44, 36, 168, DateTimeKind.Local).AddTicks(2093))
+                        .HasDefaultValue(new DateTime(2024, 8, 27, 5, 11, 27, 721, DateTimeKind.Local).AddTicks(567))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

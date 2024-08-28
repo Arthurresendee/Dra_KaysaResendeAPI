@@ -18,12 +18,10 @@ namespace DRAKaysa.Controllers
     public class EnderecoController : ControllerBase
     {
         private readonly DataContext _context;
-        private List<Endereco> listaDeEndereco;
 
         public EnderecoController(DataContext context)
         {
             _context = context;
-            listaDeEndereco = new List<Endereco>();
         }
 
         // GET: api/Endereco
@@ -32,16 +30,16 @@ namespace DRAKaysa.Controllers
         {
             try
             {
-                var enderecos = _context.Enderecos.ToList();
+                var enderecos = await _context.Enderecos.ToListAsync();
                 if (enderecos.IsNullOrEmpty())
                 {
-                    return NotFound(new ResultViewModel<List<Endereco>>(listaDeEndereco, "Nenhum endereco encontrado."));
+                    return NotFound("Não foi encontrado nenhum Endereço");
                 }
-                return Ok(new ResultViewModel<List<Endereco>>(enderecos));
+                return Ok(enderecos);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<Endereco>($"{ex.Message}"));
+                return BadRequest(ex.Message);
             }
         }
 
@@ -54,14 +52,14 @@ namespace DRAKaysa.Controllers
                 var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.Id == id);
                 if (endereco == null)
                 {
-                    return NotFound(new ResultViewModel<List<Endereco>>(listaDeEndereco,"nenhum endereco encontrado"));
+                    return NotFound("Endereço não encontrado");
                 }
-                listaDeEndereco.Add(endereco);
-                return Ok(new ResultViewModel<List<Endereco>>(listaDeEndereco));
+
+                return Ok(endereco);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<List<Endereco>>(listaDeEndereco,ex.Message));
+                return BadRequest(ex.Message);
             }
         }
 
@@ -79,65 +77,77 @@ namespace DRAKaysa.Controllers
             }
             catch(Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<List<Endereco>>(listaDeEndereco, ex.Message));
+                return BadRequest(ex.Message);
             }
         }
 
         //api/Endereco/id
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEndereco(int id, Endereco endereco)
+        public async Task<IActionResult> Put(int id, [FromBody]Endereco endereco)
         {
-            if (id != endereco.Id)
+            var end = await _context.Enderecos.FindAsync(id);
+            if (end == null)
             {
-                return BadRequest();
+                return NotFound("Endereço não encontrado.");
             }
 
-            _context.Entry(endereco).State = EntityState.Modified;
+            end.CEP = endereco.CEP;
+            end.Rua = endereco.Rua;
+            end.Bairro = endereco.Bairro;
+            end.Cidade = endereco.Cidade;
+            end.Estado = endereco.Estado;
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!EnderecoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
 
             return NoContent();
         }
 
-        
-
-        //api/Endereco/5
+        //api/Endereco/1
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEndereco(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (_context.Enderecos == null)
-            {
-                return NotFound();
-            }
             var endereco = await _context.Enderecos.FindAsync(id);
             if (endereco == null)
             {
                 return NotFound();
             }
 
-            _context.Enderecos.Remove(endereco);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Enderecos.Remove(endereco);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return NoContent();
         }
 
-        private bool EnderecoExists(int id)
+        [HttpGet("cep/{CEP}")]
+        public async Task<ActionResult> GetByCEP(string cep)
         {
-            return (_context.Enderecos?.Any(e => e.Id == id)).GetValueOrDefault();
+            try
+            {
+                var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.CEP == cep);
+                if (endereco == null)
+                {
+                    return NotFound("Usuario não encontrado");
+                }
+                return Ok(endereco);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

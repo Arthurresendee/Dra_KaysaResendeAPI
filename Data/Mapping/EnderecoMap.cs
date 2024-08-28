@@ -28,11 +28,11 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasMaxLength(8)
                 .IsRequired();
 
-            builder.Property(e => e.Pais)
-                .HasColumnName("Pais")
+            builder.Property(e => e.Bairro)
+                .HasColumnName("Bairro")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(e => e.Estado)
                 .HasColumnName("Estado")
@@ -50,12 +50,6 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnName("Rua")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(100)
-                .IsRequired(false);
-
-            builder.Property(e => e.Numero)
-                .HasColumnName("Numero")
-                .HasColumnType("nvarchar")
-                .HasMaxLength(50)
                 .IsRequired(false);
 
             builder.HasIndex(e => e.CEP, "IX_Endereco_CEP")
