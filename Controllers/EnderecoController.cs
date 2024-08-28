@@ -10,6 +10,7 @@ using DRAKaysaResende.Models;
 using DRAKaysa.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using DRAKaysa.Services;
+using DRAKaysa.Services.Validators;
 
 namespace DRAKaysa.Controllers
 {
@@ -18,10 +19,12 @@ namespace DRAKaysa.Controllers
     public class EnderecoController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly EnderecoValidator _validator;
 
-        public EnderecoController(DataContext context)
+        public EnderecoController(DataContext context, EnderecoValidator validator)
         {
             _context = context;
+            _validator = validator;
         }
 
         // GET: api/Endereco
@@ -69,6 +72,7 @@ namespace DRAKaysa.Controllers
         {
             try
             {
+                _validator.Validate(endereco);
                 await _context.Enderecos.AddAsync(endereco);
                 await _context.SaveChangesAsync();
 

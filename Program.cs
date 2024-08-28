@@ -1,4 +1,10 @@
+using DRAKaysa.Services.Validators;
 using DRAKaysaResende.Data;
+using DRAKaysaResende.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +19,9 @@ builder.Services.AddCors(options =>
                       });
 });
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DataContext>();
+builder.Services.AddScoped<EnderecoValidator>();
+builder.Services.AddDbContext<DataContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();

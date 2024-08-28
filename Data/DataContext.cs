@@ -14,6 +14,11 @@ namespace DRAKaysaResende.Data
 {
     public class DataContext : DbContext
     {
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Dentista> Dentistas { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }

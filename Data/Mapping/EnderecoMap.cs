@@ -1,6 +1,8 @@
 ﻿using DRAKaysaResende.Models;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NuGet.Protocol.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,6 @@ namespace DRAKaysaResende.Data.Mapping
             builder.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
-
 
             builder.Property(e => e.CEP)
                 .HasColumnName("CEP")
