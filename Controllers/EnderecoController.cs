@@ -11,12 +11,13 @@ using DRAKaysa.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using DRAKaysa.Services;
 using DRAKaysa.Services.Validators;
+using DRAKaysa.Interfaces;
 
 namespace DRAKaysa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EnderecoController : ControllerBase
+    public class EnderecoController : ControllerBase, IBaseController<Endereco>
     {
         private readonly DataContext _context;
         private readonly EnderecoValidator _validator;
@@ -29,7 +30,7 @@ namespace DRAKaysa.Controllers
 
         // GET: api/Endereco
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Paciente>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Endereco>>> GetAll()
         {
             try
             {
@@ -87,7 +88,7 @@ namespace DRAKaysa.Controllers
 
         //api/Endereco/id
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]Endereco endereco)
+        public async Task<ActionResult> Put(int id, [FromBody]Endereco endereco)
         {
             var end = await _context.Enderecos.FindAsync(id);
             if (end == null)
@@ -115,7 +116,7 @@ namespace DRAKaysa.Controllers
 
         //api/Endereco/1
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             var endereco = await _context.Enderecos.FindAsync(id);
             if (endereco == null)
@@ -137,7 +138,7 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpGet("cep/{CEP}")]
-        public async Task<ActionResult> GetByCEP(string cep)
+        public async Task<ActionResult<Endereco>> GetByCEP(string cep)
         {
             try
             {

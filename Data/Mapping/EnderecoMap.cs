@@ -53,6 +53,12 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasMaxLength(100)
                 .IsRequired(false);
 
+            builder.Property(e => e.Numero)
+                .HasColumnName("Numero")
+                .HasColumnType("nvarchar")
+                .HasMaxLength(100)
+                .IsRequired(false);
+
             builder.HasIndex(e => e.CEP, "IX_Endereco_CEP")
                 .IsUnique();
 

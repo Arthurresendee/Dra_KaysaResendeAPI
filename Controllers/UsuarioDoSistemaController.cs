@@ -1,4 +1,5 @@
-﻿using DRAKaysa.Models;
+﻿using DRAKaysa.Interfaces;
+using DRAKaysa.Models;
 using DRAKaysa.ViewModels;
 using DRAKaysaResende.Data;
 using DRAKaysaResende.Models;
@@ -13,7 +14,7 @@ namespace DRAKaysa.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioDoSistemaController : Controller
+    public class UsuarioDoSistemaController : Controller, IBaseController<UsuarioDoSistema>
     {
         private readonly DataContext _context;
 
@@ -23,7 +24,7 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<UsuarioDoSistema>>> GetAll()
         {
             try
             {
@@ -41,7 +42,7 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetById(int id)
+        public async Task<ActionResult<UsuarioDoSistema>> GetById(int id)
         {
             try
             {
@@ -59,7 +60,7 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UsuarioDoSistema usuario)
+        public async Task<ActionResult<UsuarioDoSistema>> Post([FromBody] UsuarioDoSistema usuario)
         {
             try
             {
@@ -76,7 +77,7 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UsuarioDoSistema usuario)
+        public async Task<ActionResult> Put(int id, [FromBody] UsuarioDoSistema usuario)
         {
             var user = await _context.UsuariosdoSistema.FindAsync(id);
             if (user == null)
@@ -103,7 +104,7 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
 
             var user = await _context.UsuariosdoSistema.FindAsync(id);
