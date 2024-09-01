@@ -138,11 +138,14 @@ namespace DRAKaysa.Controllers
         }
 
         [HttpGet("cep/{CEP}")]
-        public async Task<ActionResult<Endereco>> GetByCEP(string cep)
+        public async Task<ActionResult<IEnumerable<Endereco>>> GetByCEP(string cep)
         {
             try
             {
-                var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.CEP == cep);
+                var endereco = await _context.Enderecos
+                                    .Where(x => x.CEP == cep)
+                                    .ToListAsync();
+
                 if (endereco == null)
                 {
                     return NotFound("Usuario não encontrado");

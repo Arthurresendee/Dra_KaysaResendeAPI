@@ -55,12 +55,14 @@ namespace DRAKaysaResende.Data.Mapping
 
             builder.Property(e => e.Numero)
                 .HasColumnName("Numero")
-                .HasColumnType("nvarchar")
+                .HasColumnType("INT")
                 .HasMaxLength(100)
                 .IsRequired(false);
 
-            builder.HasIndex(e => e.CEP, "IX_Endereco_CEP")
+            builder.HasIndex(e => e.Numero, "IX_Endereco_Numero")
                 .IsUnique();
+
+            builder.HasIndex(e => e.CEP, "IX_Endereco_CEP");
 
         }
     }
