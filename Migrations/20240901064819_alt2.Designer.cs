@@ -4,6 +4,7 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240901064819_alt2")]
+    partial class alt2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,11 +158,6 @@ namespace DRAKaysa.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Cidade");
-
-                    b.Property<string>("Descricao")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("Descricao");
 
                     b.Property<string>("Estado")
                         .HasMaxLength(50)
@@ -311,7 +309,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 1, 4, 51, 26, 243, DateTimeKind.Local).AddTicks(8822))
+                        .HasDefaultValue(new DateTime(2024, 9, 1, 3, 48, 18, 969, DateTimeKind.Local).AddTicks(9948))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

@@ -53,7 +53,7 @@ namespace DRAKaysaResende.Data.Mapping
             builder.Property(x => x.Email)
                 .HasColumnName("Email")
                 .HasColumnType("nvarchar")
-                .HasMaxLength(5)
+                .HasMaxLength(50)
                 .IsRequired(false);
 
             builder.Property(x => x.NumeroDeTelefone)
@@ -78,6 +78,9 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnType("INT")
                 .IsRequired();
 
+            builder.HasOne(x => x.Endereco)
+            .WithMany()
+            .HasForeignKey(x => x.IdEndereco);
         }
     }
 }

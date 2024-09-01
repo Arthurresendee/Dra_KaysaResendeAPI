@@ -47,13 +47,13 @@ namespace DRAKaysaResende.Data.Mapping
 
             builder.Property(x => x.DataInicial)
                 .HasColumnName("DataInicial")
-                .HasColumnType("SMALLDATETIME")
+                .HasColumnType("DATETIME")
                 .HasDefaultValue(DateTime.Now)
                 .IsRequired();
 
             builder.Property(x => x.DataFinal)
                 .HasColumnName("DataFinal")
-                .HasColumnType("SMALLDATETIME")
+                .HasColumnType("DATETIME")
                 .HasDefaultValue(null)
                 .IsRequired();
         }

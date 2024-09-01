@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json.Serialization;
 
 namespace DRAKaysaResende.Models
@@ -14,5 +15,6 @@ namespace DRAKaysaResende.Models
         public string? Bairro { get; set; }
         public string? Cidade { get; set; }
         public string? Estado { get; set; }
+        public string? Descricao { get; set; } //Esse campo irá mostrar todos os anteriores como uma string. Para assim, ser selecionado no front para escolha de um endereco do dentista
     }
 }

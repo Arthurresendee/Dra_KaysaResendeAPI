@@ -74,6 +74,7 @@ namespace DRAKaysa.Controllers
             try
             {
                 _validator.Validate(endereco);
+                _validator.GerarDescricao(endereco);
                 await _context.Enderecos.AddAsync(endereco);
                 await _context.SaveChangesAsync();
 
@@ -146,7 +147,7 @@ namespace DRAKaysa.Controllers
                                     .Where(x => x.CEP == cep)
                                     .ToListAsync();
 
-                if (endereco == null)
+                if (endereco == null || !endereco.Any())
                 {
                     return NotFound("Usuario não encontrado");
                 }
@@ -157,5 +158,35 @@ namespace DRAKaysa.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //[HttpGet("options/select")]
+        //public async Task<ActionResult<IEnumerable<EnderecoSelectOptionViewModel>>> GetEnderecoOptions()
+        //{
+        //    try
+        //    {
+        //        var enderecos = await _context.Enderecos.ToListAsync();
+        //        if (enderecos == null || !enderecos.Any())
+        //        {
+        //            return NotFound("Não foi encontrado nenhum Endereço");
+        //        }
+
+        //        var response = enderecos.Select(endereco => new EnderecoSelectOptionViewModel
+        //        {
+        //            CEP = endereco.CEP,
+        //            Rua = endereco.Rua,
+        //            Numero = endereco.Numero,
+        //            Bairro = endereco.Bairro,
+        //            Cidade = endereco.Cidade,
+        //            Estado = endereco.Estado,
+        //            Descricao = $"{endereco.Rua}, {endereco.Numero}, {endereco.Bairro} - {endereco.Cidade} / {endereco.Estado}"
+        //        }).ToList();
+
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }
