@@ -9,14 +9,13 @@ namespace DRAKaysaResende.Models
         public string Nome { get; set; }
         public string SobreNome { get; set; }
         public string? CPF { get; set; }
-        public string? Bairro { get; set; }
-        public DateTime? DataDeAniversario { get; set; }
+        public DateTime? DataDeNascimento { get; set; }
         public int? Idade { get; set; }
         public string? Email { get; set; }
         public string? NumeroDeTelefone { get; set; }
-        public string? Especializacao { get; set; }
         public string? NumeroDeRegistro { get; set; }
+        public string? Especializacao { get; set; }
         public int IdEndereco { get; set; }
-        public Endereco Endereco { get; set; }
+        public Endereco? Endereco { get; set; }
     }
 }

@@ -45,8 +45,8 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasDefaultValue("00000000000")
                 .IsRequired(false);
 
-            builder.Property(x => x.DataDeAniversario)
-                .HasColumnName("DataDeAniversario")
+            builder.Property(x => x.DataDeNascimento)
+                .HasColumnName("DataDeNascimento")
                 .HasColumnType("SMALLDATETIME")
                 .IsRequired(false);
 
@@ -77,6 +77,9 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnName("IdEndereco")
                 .HasColumnType("INT")
                 .IsRequired();
+
+            builder.HasIndex(x => x.Id, "IX_dentista_CPF")
+                .IsUnique();
 
             builder.HasOne(x => x.Endereco)
             .WithMany()

@@ -4,6 +4,7 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240901155445_Removendo campo bairro da entidade Dentista")]
+    partial class RemovendocampobairrodaentidadeDentista
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,9 +127,6 @@ namespace DRAKaysa.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdEndereco");
-
-                    b.HasIndex(new[] { "Id" }, "IX_dentista_CPF")
-                        .IsUnique();
 
                     b.ToTable("Dentistas", (string)null);
                 });
@@ -311,7 +311,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 2, 10, 58, 52, 181, DateTimeKind.Local).AddTicks(6243))
+                        .HasDefaultValue(new DateTime(2024, 9, 1, 12, 54, 45, 590, DateTimeKind.Local).AddTicks(2669))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
