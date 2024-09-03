@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using DRAKaysa.Services;
 using DRAKaysa.Services.Validators;
 using DRAKaysa.Interfaces;
+using DRAKaysa.Extensions;
 
 namespace DRAKaysa.Controllers
 {
@@ -39,11 +40,11 @@ namespace DRAKaysa.Controllers
                 {
                     return NotFound("Não foi encontrado nenhum Endereço");
                 }
-                return Ok(enderecos);
+                return Ok(new ResultViewModel<List<Endereco>>(enderecos));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500,new ResultViewModel<List<Endereco>>("Falha interna"));
             }
         }
 
@@ -56,14 +57,14 @@ namespace DRAKaysa.Controllers
                 var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.Id == id);
                 if (endereco == null)
                 {
-                    return NotFound("Endereço não encontrado");
+                    return NotFound(new ResultViewModel<Endereco>("Endereço não encontrado"));
                 }
 
-                return Ok(endereco);
+                return Ok(new ResultViewModel<Endereco>(endereco));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor"));
             }
         }
 
@@ -71,10 +72,14 @@ namespace DRAKaysa.Controllers
         [HttpPost]
         public async Task<ActionResult<Endereco>> Post([FromBody] Endereco endereco)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ResultViewModel<Endereco>(ModelState.GetErrors()));
+            }
+
             try
             {
-                _validator.Validate(endereco);
-                _validator.GerarDescricao(endereco);
+                endereco.Descricao = $"Rua: {endereco.Rua}, nº: {endereco.Numero}, Estado: {endereco.Estado}, CEP: {endereco.CEP}";
                 await _context.Enderecos.AddAsync(endereco);
                 await _context.SaveChangesAsync();
 

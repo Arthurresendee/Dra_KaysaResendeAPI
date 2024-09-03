@@ -1,5 +1,6 @@
 using DRAKaysa.Services.Validators;
 using DRAKaysaResende.Data;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -15,7 +16,13 @@ builder.Services.AddCors(options =>
                                 .AllowAnyMethod();
                       });
 });
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    })
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
+
 builder.Services.AddScoped<EnderecoValidator>();
 builder.Services.AddScoped<DentistaValidator>();
 builder.Services.AddDbContext<DataContext>(options =>

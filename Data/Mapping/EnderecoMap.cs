@@ -39,31 +39,31 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnName("Estado")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(e => e.Cidade)
                 .HasColumnName("Cidade")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(e => e.Rua)
                 .HasColumnName("Rua")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(e => e.Numero)
                 .HasColumnName("Numero")
                 .HasColumnType("INT")
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(e => e.Descricao)
                 .HasColumnName("Descricao")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(500)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.HasIndex(e => e.Numero, "IX_Endereco_Numero")
                 .IsUnique();

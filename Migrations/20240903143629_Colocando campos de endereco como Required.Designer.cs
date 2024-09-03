@@ -4,6 +4,7 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240903143629_Colocando campos de endereco como Required")]
+    partial class ColocandocamposdeenderecocomoRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +161,6 @@ namespace DRAKaysa.Migrations
                         .HasColumnName("Cidade");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Descricao");
@@ -169,7 +171,8 @@ namespace DRAKaysa.Migrations
                         .HasColumnType("nvarchar")
                         .HasColumnName("Estado");
 
-                    b.Property<int>("Numero")
+                    b.Property<int?>("Numero")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("INT")
                         .HasColumnName("Numero");
@@ -314,7 +317,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 3, 14, 9, 8, 424, DateTimeKind.Local).AddTicks(4963))
+                        .HasDefaultValue(new DateTime(2024, 9, 3, 11, 36, 29, 840, DateTimeKind.Local).AddTicks(1554))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
