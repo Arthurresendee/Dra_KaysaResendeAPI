@@ -4,6 +4,7 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240904135103_tirando o campo Numero como IndiceUnique")]
+    partial class tirandoocampoNumerocomoIndiceUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,10 +172,9 @@ namespace DRAKaysa.Migrations
                         .HasColumnType("nvarchar")
                         .HasColumnName("Estado");
 
-                    b.Property<string>("Numero")
-                        .IsRequired()
+                    b.Property<int>("Numero")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar")
+                        .HasColumnType("INT")
                         .HasColumnName("Numero");
 
                     b.Property<string>("Rua")
@@ -312,7 +314,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 4, 11, 2, 21, 587, DateTimeKind.Local).AddTicks(7167))
+                        .HasDefaultValue(new DateTime(2024, 9, 4, 10, 51, 3, 470, DateTimeKind.Local).AddTicks(1021))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

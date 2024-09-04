@@ -79,7 +79,7 @@ namespace DRAKaysa.Controllers
 
             try
             {
-                endereco.Descricao = $"Rua: {endereco.Rua}, nº: {endereco.Numero}, Estado: {endereco.Estado}, CEP: {endereco.CEP}";
+                endereco.GerarDescricao();
                 await _context.Enderecos.AddAsync(endereco);
                 await _context.SaveChangesAsync();
 
@@ -88,7 +88,7 @@ namespace DRAKaysa.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor"));
             }
         }
 

@@ -15,6 +15,7 @@ namespace DRAKaysaResende.Models
         public string? NumeroDeTelefone { get; set; }
         public string? NumeroDeRegistro { get; set; }
         public string? Especializacao { get; set; }
+        //public string DataCricao { get; set; }
         public int IdEndereco { get; set; }
         public Endereco? Endereco { get; set; }
     }
