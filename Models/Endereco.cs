@@ -19,7 +19,7 @@ namespace DRAKaysaResende.Models
 
         public override string ToString()
         {
-            return $"Rua: {Rua}, nº: {Numero}, Bairro: {Bairro}, Cidade: {Cidade}, Estado: {Estado}, CEP: {CEP}";
+            return $"{Rua}, {Numero} - {Bairro} - {Cidade} - {Estado} - {CEP}";
         }
 
         public void GerarDescricao()

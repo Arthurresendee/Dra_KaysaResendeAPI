@@ -1,5 +1,7 @@
-﻿using DRAKaysa.Interfaces;
+﻿using DRAKaysa.Extensions;
+using DRAKaysa.Interfaces;
 using DRAKaysa.Services.Validators;
+using DRAKaysa.ViewModels;
 using DRAKaysaResende.Data;
 using DRAKaysaResende.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,17 +27,19 @@ namespace DRAKaysa.Controllers
             try
             {
                 var dentistas = await _context.Dentistas
-                    .Include(x => x.Endereco).ToListAsync();
+                    .Include(x => x.Endereco)
+                    .OrderByDescending(x => x.Id)
+                    .ToListAsync();
 
                 if(dentistas == null || !dentistas.Any())
                 {
-                    return NotFound("Não foi encontrado nenhum dentista");
+                    return NotFound(new ResultViewModel<List<Dentista>>("Não foi encontrado nenhum dentista"));
                 }
-                return Ok(dentistas);
+                return Ok(new ResultViewModel<List<Dentista>>(dentistas));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResultViewModel<List<Dentista>>("Falha interna no Servidor - NO80i1aTZ0WmiNPuws3lwA,"));
             }
         }
 
@@ -49,19 +53,24 @@ namespace DRAKaysa.Controllers
 
                 if (dentista == null)
                 {
-                    return NotFound("Não foi encontrado nenhum dentista");
+                    return NotFound(new ResultViewModel<Dentista>("Não foi encontrado nenhum dentista - Icgi5_Bo206_xUFjQuNToA,"));
                 }
-                return Ok(dentista);
+                return Ok(new ResultViewModel<Dentista>(dentista));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResultViewModel<Dentista>("Falha interna no servidor"));
             }
         }
 
         [HttpPost]
         public async Task<ActionResult<Dentista>> Post([FromBody] Dentista dentista)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ResultViewModel<Dentista>(ModelState.GetErrors()));
+            }
+
             try
             {
                 _validator.Validate(dentista);
@@ -72,7 +81,7 @@ namespace DRAKaysa.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Não foi possível incluir um dentista");
+                return StatusCode(300,new ResultViewModel<List<Dentista>>("Falha interna no servidor - Icgi5_Bo206_xUFjQuNToA,"));
             }
         }
 

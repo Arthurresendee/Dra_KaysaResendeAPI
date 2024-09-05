@@ -11,7 +11,6 @@ public class EnderecoValidator : AbstractValidator<Endereco>
         _context = context;
 
         RuleFor(e => e.CEP)
-            .NotEmpty().WithMessage("O CEP é obrigatório.")
             .Length(8).WithMessage("O CEP deve ter 8 caracteres.");
 
         RuleFor(e => e.Bairro)

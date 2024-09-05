@@ -35,16 +35,19 @@ namespace DRAKaysa.Controllers
         {
             try
             {
-                var enderecos = await _context.Enderecos.ToListAsync();
+                var enderecos = await _context.Enderecos
+                    .OrderByDescending(x => x.Id)
+                    .ToListAsync();
+
                 if (enderecos.IsNullOrEmpty())
                 {
-                    return NotFound("Não foi encontrado nenhum Endereço");
+                    return NotFound(new ResultViewModel<List<Endereco>>("Não foi encontrado nenhum Endereço"));
                 }
                 return Ok(new ResultViewModel<List<Endereco>>(enderecos));
             }
             catch (Exception ex)
             {
-                return StatusCode(500,new ResultViewModel<List<Endereco>>("Falha interna"));
+                return StatusCode(500,new ResultViewModel<List<Endereco>>("Falha interna no servidor - rCeP3_N_GUSa_BySsd5ZfA,"));
             }
         }
 
@@ -54,7 +57,9 @@ namespace DRAKaysa.Controllers
         {
             try
             {
-                var endereco = await _context.Enderecos.FirstOrDefaultAsync(x => x.Id == id);
+                var endereco = await _context.Enderecos
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
                 if (endereco == null)
                 {
                     return NotFound(new ResultViewModel<Endereco>("Endereço não encontrado"));
@@ -64,7 +69,7 @@ namespace DRAKaysa.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor"));
+                return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor - 7dJfpgpGNEaC_l85U22r_w,"));
             }
         }
 
@@ -86,9 +91,9 @@ namespace DRAKaysa.Controllers
                 return CreatedAtAction("GetById", new { id = endereco.Id }, endereco);
 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor"));
+                return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor - 38FS-AlzGkqL43pULxAXMw,"));
             }
         }
 
@@ -163,35 +168,5 @@ namespace DRAKaysa.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpGet("options/select")]
-        //public async Task<ActionResult<IEnumerable<EnderecoSelectOptionViewModel>>> GetEnderecoOptions()
-        //{
-        //    try
-        //    {
-        //        var enderecos = await _context.Enderecos.ToListAsync();
-        //        if (enderecos == null || !enderecos.Any())
-        //        {
-        //            return NotFound("Não foi encontrado nenhum Endereço");
-        //        }
-
-        //        var response = enderecos.Select(endereco => new EnderecoSelectOptionViewModel
-        //        {
-        //            CEP = endereco.CEP,
-        //            Rua = endereco.Rua,
-        //            Numero = endereco.Numero,
-        //            Bairro = endereco.Bairro,
-        //            Cidade = endereco.Cidade,
-        //            Estado = endereco.Estado,
-        //            Descricao = $"{endereco.Rua}, {endereco.Numero}, {endereco.Bairro} - {endereco.Cidade} / {endereco.Estado}"
-        //        }).ToList();
-
-        //        return Ok(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
     }
 }
