@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DRAKaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class teste : Migration
+    public partial class FistMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,10 +18,12 @@ namespace DRAKaysa.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CEP = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    Rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Bairro = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Estado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,8 +40,8 @@ namespace DRAKaysa.Migrations
                     TipoDePlano = table.Column<int>(type: "INT", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
                     Coberturas = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
-                    DataInicial = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false, defaultValue: new DateTime(2024, 8, 27, 5, 11, 27, 721, DateTimeKind.Local).AddTicks(567)),
-                    DataFinal = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false)
+                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2024, 9, 8, 16, 29, 36, 165, DateTimeKind.Local).AddTicks(7674)),
+                    DataFinal = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,23 +88,21 @@ namespace DRAKaysa.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     SobreNome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Idade = table.Column<int>(type: "INT", nullable: true),
-                    CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true, defaultValue: "00000000000"),
-                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataDeAniversario = table.Column<DateTime>(type: "SMALLDATETIME", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    NumeroDeTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Especialização = table.Column<string>(type: "TEXT", nullable: true),
-                    NumeroDeRegistro = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
-                    IdEndereco = table.Column<int>(type: "INT", nullable: false),
-                    EnderecoId = table.Column<int>(type: "int", nullable: false)
+                    CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false, defaultValue: "00000000000"),
+                    DataDeNascimento = table.Column<DateTime>(type: "Date", nullable: false),
+                    Idade = table.Column<int>(type: "INT", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    NumeroDeTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    NumeroDeRegistro = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
+                    Especialização = table.Column<string>(type: "TEXT", nullable: false),
+                    IdEndereco = table.Column<int>(type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dentistas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Dentistas_Enderecos_EnderecoId",
-                        column: x => x.EnderecoId,
+                        name: "FK_Dentistas_Enderecos_IdEndereco",
+                        column: x => x.IdEndereco,
                         principalTable: "Enderecos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -186,15 +186,25 @@ namespace DRAKaysa.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dentistas_EnderecoId",
+                name: "IX_dentista_CPF",
                 table: "Dentistas",
-                column: "EnderecoId");
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_dentista_Nome",
+                table: "Dentistas",
+                column: "Nome");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dentistas_IdEndereco",
+                table: "Dentistas",
+                column: "IdEndereco");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Endereco_CEP",
                 table: "Enderecos",
-                column: "CEP",
-                unique: true);
+                column: "CEP");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PacientePlanos_IdPaciente",

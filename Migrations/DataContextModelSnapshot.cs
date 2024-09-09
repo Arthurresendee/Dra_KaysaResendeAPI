@@ -72,26 +72,28 @@ namespace DRAKaysa.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CPF")
-                        .ValueGeneratedOnAdd()
+                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar")
-                        .HasDefaultValue("00000000000")
                         .HasColumnName("CPF");
 
                     b.Property<DateTime?>("DataDeNascimento")
-                        .HasColumnType("SMALLDATETIME")
+                        .HasColumnType("Date")
                         .HasColumnName("DataDeNascimento");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Email");
 
                     b.Property<string>("Especializacao")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("Especialização");
 
-                    b.Property<int>("IdEndereco")
+                    b.Property<int?>("IdEndereco")
+                        .IsRequired()
                         .HasColumnType("INT")
                         .HasColumnName("IdEndereco");
 
@@ -106,11 +108,13 @@ namespace DRAKaysa.Migrations
                         .HasColumnName("Nome");
 
                     b.Property<string>("NumeroDeRegistro")
+                        .IsRequired()
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeRegistro");
 
                     b.Property<string>("NumeroDeTelefone")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeTelefone");
@@ -125,8 +129,10 @@ namespace DRAKaysa.Migrations
 
                     b.HasIndex("IdEndereco");
 
-                    b.HasIndex(new[] { "Id" }, "IX_dentista_CPF")
+                    b.HasIndex(new[] { "CPF" }, "IX_dentista_CPF")
                         .IsUnique();
+
+                    b.HasIndex(new[] { "Nome" }, "IX_dentista_Nome");
 
                     b.ToTable("Dentistas", (string)null);
                 });
@@ -312,7 +318,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 4, 11, 2, 21, 587, DateTimeKind.Local).AddTicks(7167))
+                        .HasDefaultValue(new DateTime(2024, 9, 9, 12, 8, 38, 511, DateTimeKind.Local).AddTicks(564))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

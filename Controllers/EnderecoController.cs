@@ -159,9 +159,9 @@ namespace DRAKaysa.Controllers
 
                 if (endereco == null || !endereco.Any())
                 {
-                    return NotFound("Usuario não encontrado");
+                    return NotFound(new ResultViewModel<Endereco>("Endereço não encontrado"));
                 }
-                return Ok(endereco);
+                return Ok(new ResultViewModel<List<Endereco>>(endereco));
             }
             catch (Exception ex)
             {

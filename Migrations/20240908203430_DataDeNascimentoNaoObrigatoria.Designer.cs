@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240903170908_teste4")]
-    partial class teste4
+    [Migration("20240908203430_DataDeNascimentoNaoObrigatoria")]
+    partial class DataDeNascimentoNaoObrigatoria
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,30 +75,33 @@ namespace DRAKaysa.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CPF")
-                        .ValueGeneratedOnAdd()
+                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar")
-                        .HasDefaultValue("00000000000")
                         .HasColumnName("CPF");
 
                     b.Property<DateTime?>("DataDeNascimento")
-                        .HasColumnType("SMALLDATETIME")
+                        .HasColumnType("Date")
                         .HasColumnName("DataDeNascimento");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Email");
 
                     b.Property<string>("Especializacao")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("Especialização");
 
-                    b.Property<int>("IdEndereco")
+                    b.Property<int?>("IdEndereco")
+                        .IsRequired()
                         .HasColumnType("INT")
                         .HasColumnName("IdEndereco");
 
                     b.Property<int?>("Idade")
+                        .IsRequired()
                         .HasColumnType("INT")
                         .HasColumnName("Idade");
 
@@ -109,11 +112,13 @@ namespace DRAKaysa.Migrations
                         .HasColumnName("Nome");
 
                     b.Property<string>("NumeroDeRegistro")
+                        .IsRequired()
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeRegistro");
 
                     b.Property<string>("NumeroDeTelefone")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeTelefone");
@@ -128,8 +133,10 @@ namespace DRAKaysa.Migrations
 
                     b.HasIndex("IdEndereco");
 
-                    b.HasIndex(new[] { "Id" }, "IX_dentista_CPF")
+                    b.HasIndex(new[] { "CPF" }, "IX_dentista_CPF")
                         .IsUnique();
+
+                    b.HasIndex(new[] { "Nome" }, "IX_dentista_Nome");
 
                     b.ToTable("Dentistas", (string)null);
                 });
@@ -172,9 +179,10 @@ namespace DRAKaysa.Migrations
                         .HasColumnType("nvarchar")
                         .HasColumnName("Estado");
 
-                    b.Property<int>("Numero")
+                    b.Property<string>("Numero")
+                        .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("INT")
+                        .HasColumnType("nvarchar")
                         .HasColumnName("Numero");
 
                     b.Property<string>("Rua")
@@ -186,9 +194,6 @@ namespace DRAKaysa.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "CEP" }, "IX_Endereco_CEP");
-
-                    b.HasIndex(new[] { "Numero" }, "IX_Endereco_Numero")
-                        .IsUnique();
 
                     b.ToTable("Enderecos", (string)null);
                 });
@@ -317,7 +322,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 3, 14, 9, 8, 424, DateTimeKind.Local).AddTicks(4963))
+                        .HasDefaultValue(new DateTime(2024, 9, 8, 17, 34, 30, 706, DateTimeKind.Local).AddTicks(9581))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

@@ -42,44 +42,44 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnName("CPF")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(11)
-                .HasDefaultValue("00000000000")
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(x => x.DataDeNascimento)
                 .HasColumnName("DataDeNascimento")
-                .HasColumnType("SMALLDATETIME")
-                .IsRequired(false);
+                .HasColumnType("Date");
 
             builder.Property(x => x.Email)
                 .HasColumnName("Email")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(x => x.NumeroDeTelefone)
                 .HasColumnName("NumeroDeTelefone")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(15)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(x => x.Especializacao)
                 .HasColumnName("Especialização")
                 .HasColumnType("TEXT")
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(x => x.NumeroDeRegistro)
                 .HasColumnName("NumeroDeRegistro")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(9)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(x => x.IdEndereco)
                 .HasColumnName("IdEndereco")
                 .HasColumnType("INT")
                 .IsRequired();
 
-            builder.HasIndex(x => x.Id, "IX_dentista_CPF")
+            builder.HasIndex(x => x.CPF, "IX_dentista_CPF")
                 .IsUnique();
+
+            builder.HasIndex(x => x.Nome, "IX_dentista_Nome");
 
             builder.HasOne(x => x.Endereco)
             .WithMany()

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240901063007_Data")]
-    partial class Data
+    [Migration("20240908193657_teste")]
+    partial class teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,37 +74,37 @@ namespace DRAKaysa.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Bairro")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CPF")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar")
                         .HasDefaultValue("00000000000")
                         .HasColumnName("CPF");
 
-                    b.Property<DateTime?>("DataDeAniversario")
-                        .HasColumnType("SMALLDATETIME")
-                        .HasColumnName("DataDeAniversario");
+                    b.Property<DateTime?>("DataDeNascimento")
+                        .IsRequired()
+                        .HasColumnType("Date")
+                        .HasColumnName("DataDeNascimento");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Email");
 
-                    b.Property<int>("EnderecoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Especializacao")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("Especialização");
 
-                    b.Property<int>("IdEndereco")
+                    b.Property<int?>("IdEndereco")
+                        .IsRequired()
                         .HasColumnType("INT")
                         .HasColumnName("IdEndereco");
 
                     b.Property<int?>("Idade")
+                        .IsRequired()
                         .HasColumnType("INT")
                         .HasColumnName("Idade");
 
@@ -115,11 +115,13 @@ namespace DRAKaysa.Migrations
                         .HasColumnName("Nome");
 
                     b.Property<string>("NumeroDeRegistro")
+                        .IsRequired()
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeRegistro");
 
                     b.Property<string>("NumeroDeTelefone")
+                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeTelefone");
@@ -132,7 +134,12 @@ namespace DRAKaysa.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasIndex("IdEndereco");
+
+                    b.HasIndex(new[] { "Id" }, "IX_dentista_CPF")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Nome" }, "IX_dentista_Nome");
 
                     b.ToTable("Dentistas", (string)null);
                 });
@@ -158,21 +165,31 @@ namespace DRAKaysa.Migrations
                         .HasColumnName("CEP");
 
                     b.Property<string>("Cidade")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Cidade");
 
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Descricao");
+
                     b.Property<string>("Estado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Estado");
 
-                    b.Property<int?>("Numero")
+                    b.Property<string>("Numero")
+                        .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("INT")
+                        .HasColumnType("nvarchar")
                         .HasColumnName("Numero");
 
                     b.Property<string>("Rua")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Rua");
@@ -180,10 +197,6 @@ namespace DRAKaysa.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex(new[] { "CEP" }, "IX_Endereco_CEP");
-
-                    b.HasIndex(new[] { "Numero" }, "IX_Endereco_Numero")
-                        .IsUnique()
-                        .HasFilter("[Numero] IS NOT NULL");
 
                     b.ToTable("Enderecos", (string)null);
                 });
@@ -312,7 +325,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 1, 3, 30, 7, 857, DateTimeKind.Local).AddTicks(5149))
+                        .HasDefaultValue(new DateTime(2024, 9, 8, 16, 36, 57, 691, DateTimeKind.Local).AddTicks(8752))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
@@ -365,7 +378,7 @@ namespace DRAKaysa.Migrations
                 {
                     b.HasOne("DRAKaysaResende.Models.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId")
+                        .HasForeignKey("IdEndereco")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

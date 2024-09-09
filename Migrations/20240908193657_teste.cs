@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DRAKaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class AdicionandocampodedescriçãoemEndereco : Migration
+    public partial class teste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,35 +16,24 @@ namespace DRAKaysa.Migrations
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 1, 4, 51, 26, 243, DateTimeKind.Local).AddTicks(8822),
+                defaultValue: new DateTime(2024, 9, 8, 16, 36, 57, 691, DateTimeKind.Local).AddTicks(8752),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 1, 3, 48, 18, 969, DateTimeKind.Local).AddTicks(9948));
-
-            migrationBuilder.AddColumn<string>(
-                name: "Descricao",
-                table: "Enderecos",
-                type: "nvarchar(500)",
-                maxLength: 500,
-                nullable: true);
+                oldDefaultValue: new DateTime(2024, 9, 8, 16, 29, 36, 165, DateTimeKind.Local).AddTicks(7674));
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Descricao",
-                table: "Enderecos");
-
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DataInicial",
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 1, 3, 48, 18, 969, DateTimeKind.Local).AddTicks(9948),
+                defaultValue: new DateTime(2024, 9, 8, 16, 29, 36, 165, DateTimeKind.Local).AddTicks(7674),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 1, 4, 51, 26, 243, DateTimeKind.Local).AddTicks(8822));
+                oldDefaultValue: new DateTime(2024, 9, 8, 16, 36, 57, 691, DateTimeKind.Local).AddTicks(8752));
         }
     }
 }

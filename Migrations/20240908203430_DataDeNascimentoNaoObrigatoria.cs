@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DRAKaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class Data : Migration
+    public partial class DataDeNascimentoNaoObrigatoria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,18 +16,18 @@ namespace DRAKaysa.Migrations
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 1, 3, 30, 7, 857, DateTimeKind.Local).AddTicks(5149),
+                defaultValue: new DateTime(2024, 9, 8, 17, 34, 30, 706, DateTimeKind.Local).AddTicks(9581),
                 oldClrType: typeof(DateTime),
-                oldType: "SMALLDATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 1, 3, 28, 52, 551, DateTimeKind.Local).AddTicks(2301));
+                oldType: "DATETIME",
+                oldDefaultValue: new DateTime(2024, 9, 8, 16, 44, 27, 100, DateTimeKind.Local).AddTicks(2663));
 
             migrationBuilder.AlterColumn<DateTime>(
-                name: "DataFinal",
-                table: "Planos",
-                type: "DATETIME",
-                nullable: false,
+                name: "DataDeNascimento",
+                table: "Dentistas",
+                type: "Date",
+                nullable: true,
                 oldClrType: typeof(DateTime),
-                oldType: "SMALLDATETIME");
+                oldType: "Date");
         }
 
         /// <inheritdoc />
@@ -36,20 +36,22 @@ namespace DRAKaysa.Migrations
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DataInicial",
                 table: "Planos",
-                type: "SMALLDATETIME",
+                type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 1, 3, 28, 52, 551, DateTimeKind.Local).AddTicks(2301),
+                defaultValue: new DateTime(2024, 9, 8, 16, 44, 27, 100, DateTimeKind.Local).AddTicks(2663),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 1, 3, 30, 7, 857, DateTimeKind.Local).AddTicks(5149));
+                oldDefaultValue: new DateTime(2024, 9, 8, 17, 34, 30, 706, DateTimeKind.Local).AddTicks(9581));
 
             migrationBuilder.AlterColumn<DateTime>(
-                name: "DataFinal",
-                table: "Planos",
-                type: "SMALLDATETIME",
+                name: "DataDeNascimento",
+                table: "Dentistas",
+                type: "Date",
                 nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                 oldClrType: typeof(DateTime),
-                oldType: "DATETIME");
+                oldType: "Date",
+                oldNullable: true);
         }
     }
 }

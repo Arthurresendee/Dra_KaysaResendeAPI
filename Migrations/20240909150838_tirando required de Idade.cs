@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DRAKaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class alterandoocamponúmeroparastring : Migration
+    public partial class tirandorequireddeIdade : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,20 +16,18 @@ namespace DRAKaysa.Migrations
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 4, 11, 2, 21, 587, DateTimeKind.Local).AddTicks(7167),
+                defaultValue: new DateTime(2024, 9, 9, 12, 8, 38, 511, DateTimeKind.Local).AddTicks(564),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 4, 10, 51, 3, 470, DateTimeKind.Local).AddTicks(1021));
+                oldDefaultValue: new DateTime(2024, 9, 8, 17, 34, 30, 706, DateTimeKind.Local).AddTicks(9581));
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Numero",
-                table: "Enderecos",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: false,
+            migrationBuilder.AlterColumn<int>(
+                name: "Idade",
+                table: "Dentistas",
+                type: "INT",
+                nullable: true,
                 oldClrType: typeof(int),
-                oldType: "INT",
-                oldMaxLength: 100);
+                oldType: "INT");
         }
 
         /// <inheritdoc />
@@ -40,20 +38,20 @@ namespace DRAKaysa.Migrations
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 4, 10, 51, 3, 470, DateTimeKind.Local).AddTicks(1021),
+                defaultValue: new DateTime(2024, 9, 8, 17, 34, 30, 706, DateTimeKind.Local).AddTicks(9581),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 4, 11, 2, 21, 587, DateTimeKind.Local).AddTicks(7167));
+                oldDefaultValue: new DateTime(2024, 9, 9, 12, 8, 38, 511, DateTimeKind.Local).AddTicks(564));
 
             migrationBuilder.AlterColumn<int>(
-                name: "Numero",
-                table: "Enderecos",
+                name: "Idade",
+                table: "Dentistas",
                 type: "INT",
-                maxLength: 100,
                 nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(100)",
-                oldMaxLength: 100);
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "INT",
+                oldNullable: true);
         }
     }
 }

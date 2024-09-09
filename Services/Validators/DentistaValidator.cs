@@ -1,13 +1,19 @@
-﻿using DRAKaysaResende.Models;
+﻿using DRAKaysaResende.Data;
+using DRAKaysaResende.Models;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop.Infrastructure;
 
 namespace DRAKaysa.Services.Validators
 {
     public class DentistaValidator : AbstractValidator<Dentista>
     {
-        public DentistaValidator()
+        private readonly DataContext _context;
+        public DentistaValidator(DataContext dataContext)
         {
+            _context = dataContext;
+
             RuleFor(p => p.Nome)
             .NotEmpty().WithMessage("O Nome é obrigatório.")
             .MaximumLength(100).WithMessage("O Nome deve ter no máximo 100 caracteres.");
@@ -19,15 +25,15 @@ namespace DRAKaysa.Services.Validators
             RuleFor(p => p.CPF)
                 .NotEmpty().WithMessage("O CPF é obrigatório.")
                 .Length(11).WithMessage("O CPF deve ter 11 caracteres.")
-                .Matches(@"^\d{11}$").WithMessage("O CPF deve conter apenas números.");
+                .Matches(@"^\d{11}$").WithMessage("O CPF deve conter apenas números.")
+                .Must(BeUnique).WithMessage("Já existe um dentista cadastrado com esse CPF");
 
             RuleFor(p => p.DataDeNascimento)
-                .NotEmpty().WithMessage("A Data de Nascimento é obrigatória.")
-                .LessThan(DateTime.Now).WithMessage("A Data de Nascimento deve ser no passado.");
+                .NotEmpty().WithMessage("Data de Nascimento é obrigatória.");
 
-            RuleFor(p => p.Idade)
-                .GreaterThan(0).WithMessage("A Idade deve ser maior que 0.")
-                .LessThanOrEqualTo(120).WithMessage("A Idade deve ser menor ou igual a 120.");
+            //RuleFor(p => p.Idade)
+            //    .GreaterThan(0).WithMessage("A Idade deve ser maior que 0.")
+            //    .LessThanOrEqualTo(120).WithMessage("A Idade deve ser menor ou igual a 120.");
 
             RuleFor(p => p.Email)
                 .NotEmpty().WithMessage("O Email é obrigatório.")
@@ -39,7 +45,7 @@ namespace DRAKaysa.Services.Validators
 
             RuleFor(p => p.NumeroDeRegistro)
                 .NotEmpty().WithMessage("O Número de Registro é obrigatório.")
-                .MaximumLength(20).WithMessage("O Número de Registro deve ter no máximo 20 caracteres.");
+                .MaximumLength(20).WithMessage("O Número de Registro deve ter no máximo 9 caracteres.");
 
             RuleFor(p => p.Especializacao)
                 .NotEmpty().WithMessage("A Especialização é obrigatória.")
@@ -48,6 +54,11 @@ namespace DRAKaysa.Services.Validators
             RuleFor(p => p.IdEndereco)
                 .NotEmpty().WithMessage("O Endereco é obrigatório.")
                 .GreaterThan(0).WithMessage("O Id do Endereço deve ser maior que 0.");
+        }
+
+        private bool BeUnique(string cpf)
+        {
+            return !_context.Dentistas.Any(e => e.CPF == cpf);
         }
     }
 }
