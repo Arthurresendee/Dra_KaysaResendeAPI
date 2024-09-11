@@ -18,5 +18,6 @@ namespace DRAKaysaResende.Models
         //public string DataCriacao { get; set; }
         public int? IdEndereco { get; set; }
         public Endereco? Endereco { get; set; }
+        public List<Paciente> Pacientes { get; set; }
     }
 }

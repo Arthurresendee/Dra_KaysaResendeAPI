@@ -97,6 +97,26 @@ namespace DRAKaysa.Controllers
             throw new NotImplementedException();
         }
 
-        //[HttpPost]
+        [HttpGet("byname/{nome}")]
+        public async Task<ActionResult<IEnumerable<Dentista>>> GetByName(string nome)
+        {
+            try
+            {
+                var dentistas = await _context.Dentistas
+                                    .Where(x => x.Nome.Contains(nome))
+                                    .OrderByDescending(x => x.Id)
+                                    .ToListAsync();
+
+                if (dentistas == null || !dentistas.Any())
+                {
+                    return NotFound(new ResultViewModel<Dentista>("Endereço não encontrado com esse nome"));
+                }
+                return Ok(new ResultViewModel<List<Dentista>>(dentistas));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace DRAKaysaResende.Data.Mapping
 
             builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
-                .UseIdentityColumn(1,1);
+                .UseIdentityColumn(1, 1);
 
             builder.Property(x => x.Nome)
                 .HasColumnName("Nome")
@@ -28,17 +28,15 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasMaxLength(200)
                 .IsRequired();
 
-            builder.Property(x => x.SobreNome)
-                .HasColumnName("SobreNome")
-                .HasColumnType("varchar")
-                .HasMaxLength(200)
+            builder.Property(x => x.Sexo)
+                .HasColumnName("Sexo")
+                .HasColumnType("int") // Assuming enum is stored as int
                 .IsRequired();
 
-
-            builder.Property(x => x.Idade)
-                .HasColumnName("Idade")
-                .HasColumnType("INT")
-                .HasDefaultValue(18);
+            builder.Property(x => x.DataDeNascimento)
+                .HasColumnName("DataDeNascimento")
+                .HasColumnType("datetime")
+                .IsRequired(false);
 
             builder.Property(x => x.CPF)
                 .HasColumnName("CPF")
@@ -47,22 +45,50 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasDefaultValue("00000000000")
                 .IsRequired(false);
 
-            builder.Property(x => x.DataDeAniversario)
-                .HasColumnName("DataDeAniversario")
-                .HasColumnType("SMALLDATETIME")
-                .IsRequired(false);
-
-            builder.Property(x => x.Email)
-                .HasColumnName("Email")
+            builder.Property(x => x.RG)
+                .HasColumnName("RG")
                 .HasColumnType("nvarchar")
-                .HasMaxLength(5)
-                .IsRequired(false);
+                .HasMaxLength(20)
+                .IsRequired();
 
             builder.Property(x => x.NumeroDeTelefone)
                 .HasColumnName("NumeroDeTelefone")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(15)
                 .IsRequired(false);
+
+            builder.Property(x => x.Email)
+                .HasColumnName("Email")
+                .HasColumnType("nvarchar")
+                .HasMaxLength(100)
+                .IsRequired(false);
+
+            builder.Property(x => x.Telefone)
+                .HasColumnName("Telefone")
+                .HasColumnType("nvarchar")
+                .HasMaxLength(15)
+                .IsRequired(false);
+
+            builder.Property(x => x.Whatsapp)
+                .HasColumnName("Whatsapp")
+                .HasColumnType("nvarchar")
+                .HasMaxLength(15)
+                .IsRequired(false);
+
+            builder.HasOne(x => x.Dentista)
+                .WithMany(d => d.Pacientes)
+                .HasForeignKey(x => x.IdDentista)
+                .IsRequired();
+
+            builder.HasMany(x => x.PacientePlanos)
+                .WithOne(pp => pp.Paciente)
+                .HasForeignKey(pp => pp.IdPaciente)
+                .IsRequired();
+
+            builder.HasMany(x => x.PacienteProcedimentos)
+                .WithOne(pp => pp.Paciente)
+                .HasForeignKey(pp => pp.IdPaciente)
+                .IsRequired();
         }
     }
 }

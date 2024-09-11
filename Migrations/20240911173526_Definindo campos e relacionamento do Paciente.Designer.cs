@@ -4,6 +4,7 @@ using DRAKaysaResende.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240911173526_Definindo campos e relacionamento do Paciente")]
+    partial class DefinindocamposerelacionamentodoPaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,7 +335,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 11, 17, 36, 18, 658, DateTimeKind.Local).AddTicks(9819))
+                        .HasDefaultValue(new DateTime(2024, 9, 11, 14, 35, 26, 668, DateTimeKind.Local).AddTicks(1692))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
