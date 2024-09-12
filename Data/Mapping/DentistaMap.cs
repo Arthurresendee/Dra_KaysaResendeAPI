@@ -86,10 +86,10 @@ namespace DRAKaysaResende.Data.Mapping
             .HasForeignKey(x => x.IdEndereco)
             .IsRequired();
 
-            builder.HasMany(d => d.Pacientes)
-            .WithOne(p => p.Dentista)
-            .HasForeignKey(p => p.IdDentista)
-            .IsRequired();
+            //builder.HasMany(d => d.Pacientes)
+            //.WithOne(p => p.Dentista)
+            //.HasForeignKey(p => p.IdDentista)
+            //.IsRequired();
         }
     }
 }

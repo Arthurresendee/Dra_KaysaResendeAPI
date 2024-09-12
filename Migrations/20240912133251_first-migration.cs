@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DRAKaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class FistMigration : Migration
+    public partial class firstmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,7 +40,7 @@ namespace DRAKaysa.Migrations
                     TipoDePlano = table.Column<int>(type: "INT", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
                     Coberturas = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
-                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2024, 9, 8, 16, 29, 36, 165, DateTimeKind.Local).AddTicks(7674)),
+                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2024, 9, 12, 10, 32, 51, 220, DateTimeKind.Local).AddTicks(7718)),
                     DataFinal = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
@@ -88,9 +88,9 @@ namespace DRAKaysa.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     SobreNome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false, defaultValue: "00000000000"),
-                    DataDeNascimento = table.Column<DateTime>(type: "Date", nullable: false),
-                    Idade = table.Column<int>(type: "INT", nullable: false),
+                    CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    DataDeNascimento = table.Column<DateTime>(type: "Date", nullable: true),
+                    Idade = table.Column<int>(type: "INT", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     NumeroDeTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     NumeroDeRegistro = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
@@ -114,22 +114,30 @@ namespace DRAKaysa.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    SobreNome = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    Idade = table.Column<int>(type: "INT", nullable: true, defaultValue: 18),
+                    Nome = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
+                    Sexo = table.Column<int>(type: "int", nullable: true),
+                    DataDeNascimento = table.Column<DateTime>(type: "datetime", nullable: true),
                     CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true, defaultValue: "00000000000"),
-                    DataDeAniversario = table.Column<DateTime>(type: "SMALLDATETIME", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    RG = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     NumeroDeTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    IdEndereco = table.Column<int>(type: "int", nullable: true),
-                    EnderecoId = table.Column<int>(type: "int", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    IdDentista = table.Column<int>(type: "INT", nullable: false),
+                    IdEndereco = table.Column<int>(type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pacientes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pacientes_Enderecos_EnderecoId",
-                        column: x => x.EnderecoId,
+                        name: "FK_Pacientes_Dentistas_IdDentista",
+                        column: x => x.IdDentista,
+                        principalTable: "Dentistas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Pacientes_Enderecos_IdEndereco",
+                        column: x => x.IdEndereco,
                         principalTable: "Enderecos",
                         principalColumn: "Id");
                 });
@@ -188,7 +196,7 @@ namespace DRAKaysa.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_dentista_CPF",
                 table: "Dentistas",
-                column: "Id",
+                column: "CPF",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -223,9 +231,14 @@ namespace DRAKaysa.Migrations
                 column: "IdProcedimento");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pacientes_EnderecoId",
+                name: "IX_Pacientes_IdDentista",
                 table: "Pacientes",
-                column: "EnderecoId");
+                column: "IdDentista");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pacientes_IdEndereco",
+                table: "Pacientes",
+                column: "IdEndereco");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UsuarioDoSistema_AcessoDeUsuario",
@@ -237,9 +250,6 @@ namespace DRAKaysa.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Dentistas");
-
             migrationBuilder.DropTable(
                 name: "PacientePlanos");
 
@@ -257,6 +267,9 @@ namespace DRAKaysa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Procedimentos");
+
+            migrationBuilder.DropTable(
+                name: "Dentistas");
 
             migrationBuilder.DropTable(
                 name: "Enderecos");

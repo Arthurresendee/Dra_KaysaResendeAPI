@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DRAKaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class teste : Migration
+    public partial class teste2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,10 +16,10 @@ namespace DRAKaysa.Migrations
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 8, 16, 36, 57, 691, DateTimeKind.Local).AddTicks(8752),
+                defaultValue: new DateTime(2024, 9, 12, 10, 54, 38, 952, DateTimeKind.Local).AddTicks(8840),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 8, 16, 29, 36, 165, DateTimeKind.Local).AddTicks(7674));
+                oldDefaultValue: new DateTime(2024, 9, 12, 10, 38, 45, 777, DateTimeKind.Local).AddTicks(2271));
         }
 
         /// <inheritdoc />
@@ -30,10 +30,10 @@ namespace DRAKaysa.Migrations
                 table: "Planos",
                 type: "DATETIME",
                 nullable: false,
-                defaultValue: new DateTime(2024, 9, 8, 16, 29, 36, 165, DateTimeKind.Local).AddTicks(7674),
+                defaultValue: new DateTime(2024, 9, 12, 10, 38, 45, 777, DateTimeKind.Local).AddTicks(2271),
                 oldClrType: typeof(DateTime),
                 oldType: "DATETIME",
-                oldDefaultValue: new DateTime(2024, 9, 8, 16, 36, 57, 691, DateTimeKind.Local).AddTicks(8752));
+                oldDefaultValue: new DateTime(2024, 9, 12, 10, 54, 38, 952, DateTimeKind.Local).AddTicks(8840));
         }
     }
 }

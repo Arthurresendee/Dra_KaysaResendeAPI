@@ -26,12 +26,12 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnName("Nome")
                 .HasColumnType("varchar")
                 .HasMaxLength(200)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(x => x.Sexo)
                 .HasColumnName("Sexo")
-                .HasColumnType("int") // Assuming enum is stored as int
-                .IsRequired();
+                .HasColumnType("int")
+                .IsRequired(false);
 
             builder.Property(x => x.DataDeNascimento)
                 .HasColumnName("DataDeNascimento")
@@ -49,7 +49,7 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasColumnName("RG")
                 .HasColumnType("nvarchar")
                 .HasMaxLength(20)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(x => x.NumeroDeTelefone)
                 .HasColumnName("NumeroDeTelefone")
@@ -75,9 +75,25 @@ namespace DRAKaysaResende.Data.Mapping
                 .HasMaxLength(15)
                 .IsRequired(false);
 
+            builder.Property(x => x.IdEndereco)
+                .HasColumnName("IdEndereco")
+                .HasColumnType("INT")
+                .IsRequired();
+
+            builder.Property(x => x.IdDentista)
+                .HasColumnName("IdDentista")
+                .HasColumnType("INT")
+                .IsRequired();
+
             builder.HasOne(x => x.Dentista)
-                .WithMany(d => d.Pacientes)
+                .WithMany()
                 .HasForeignKey(x => x.IdDentista)
+                .IsRequired();
+
+            builder.HasOne(x => x.Endereco)
+                .WithMany()
+                .HasForeignKey(x => x.IdEndereco)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
             builder.HasMany(x => x.PacientePlanos)

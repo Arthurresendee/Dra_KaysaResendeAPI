@@ -27,8 +27,8 @@ namespace DRAKaysa.Controllers
             try
             {
                 var pacientes = await _context.Pacientes
-                    .Include(x => x.Endereco)
                     .Include(x => x.Dentista)
+                    .Include(x => x.Endereco)
                     .OrderByDescending(x => x.Id)
                     .ToListAsync();
 
@@ -50,7 +50,9 @@ namespace DRAKaysa.Controllers
             try
             {
                 var paciente = await _context.Pacientes
-                    .Include(x => x.Endereco).FirstOrDefaultAsync(x => x.Id == id);
+                    .Include(x => x.Endereco)
+                    .Include(x => x.Dentista)
+                    .FirstOrDefaultAsync(x => x.Id == id);
 
                 if (paciente == null)
                 {

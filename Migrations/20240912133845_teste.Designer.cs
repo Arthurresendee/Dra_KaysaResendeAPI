@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240908203430_DataDeNascimentoNaoObrigatoria")]
-    partial class DataDeNascimentoNaoObrigatoria
+    [Migration("20240912133845_teste")]
+    partial class teste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,7 +101,6 @@ namespace DRAKaysa.Migrations
                         .HasColumnName("IdEndereco");
 
                     b.Property<int?>("Idade")
-                        .IsRequired()
                         .HasColumnType("INT")
                         .HasColumnName("Idade");
 
@@ -213,29 +212,26 @@ namespace DRAKaysa.Migrations
                         .HasDefaultValue("00000000000")
                         .HasColumnName("CPF");
 
-                    b.Property<DateTime?>("DataDeAniversario")
-                        .HasColumnType("SMALLDATETIME")
-                        .HasColumnName("DataDeAniversario");
+                    b.Property<DateTime?>("DataDeNascimento")
+                        .HasColumnType("datetime")
+                        .HasColumnName("DataDeNascimento");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(5)
+                        .HasMaxLength(100)
                         .HasColumnType("nvarchar")
                         .HasColumnName("Email");
 
-                    b.Property<int?>("EnderecoId")
-                        .HasColumnType("int");
+                    b.Property<int?>("IdDentista")
+                        .IsRequired()
+                        .HasColumnType("INT")
+                        .HasColumnName("IdDentista");
 
                     b.Property<int?>("IdEndereco")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Idade")
-                        .ValueGeneratedOnAdd()
+                        .IsRequired()
                         .HasColumnType("INT")
-                        .HasDefaultValue(18)
-                        .HasColumnName("Idade");
+                        .HasColumnName("IdEndereco");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar")
                         .HasColumnName("Nome");
@@ -245,15 +241,30 @@ namespace DRAKaysa.Migrations
                         .HasColumnType("nvarchar")
                         .HasColumnName("NumeroDeTelefone");
 
-                    b.Property<string>("SobreNome")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar")
-                        .HasColumnName("SobreNome");
+                    b.Property<string>("RG")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("RG");
+
+                    b.Property<int?>("Sexo")
+                        .HasColumnType("int")
+                        .HasColumnName("Sexo");
+
+                    b.Property<string>("Telefone")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Telefone");
+
+                    b.Property<string>("Whatsapp")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Whatsapp");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasIndex("IdDentista");
+
+                    b.HasIndex("IdEndereco");
 
                     b.ToTable("Pacientes", (string)null);
                 });
@@ -322,7 +333,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 8, 17, 34, 30, 706, DateTimeKind.Local).AddTicks(9581))
+                        .HasDefaultValue(new DateTime(2024, 9, 12, 10, 38, 45, 777, DateTimeKind.Local).AddTicks(2271))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
@@ -384,9 +395,19 @@ namespace DRAKaysa.Migrations
 
             modelBuilder.Entity("DRAKaysaResende.Models.Paciente", b =>
                 {
+                    b.HasOne("DRAKaysaResende.Models.Dentista", "Dentista")
+                        .WithMany("Pacientes")
+                        .HasForeignKey("IdDentista")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DRAKaysaResende.Models.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("IdEndereco")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Dentista");
 
                     b.Navigation("Endereco");
                 });
@@ -427,6 +448,11 @@ namespace DRAKaysa.Migrations
                     b.Navigation("Paciente");
 
                     b.Navigation("Procedimento");
+                });
+
+            modelBuilder.Entity("DRAKaysaResende.Models.Dentista", b =>
+                {
+                    b.Navigation("Pacientes");
                 });
 
             modelBuilder.Entity("DRAKaysaResende.Models.Paciente", b =>
