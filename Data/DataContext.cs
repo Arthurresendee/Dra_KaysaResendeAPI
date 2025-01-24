@@ -1,7 +1,7 @@
 ﻿using DRAKaysa.Data.Mapping;
 using DRAKaysa.Models;
-using DRAKaysaResende.Data.Mapping;
-using DRAKaysaResende.Models;
+using DRAKaysa.Data.Mapping;
+using DRAKaysa.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DRAKaysaResende.Data
+namespace DRAKaysa.Data
 {
     public class DataContext : DbContext
     {
@@ -27,10 +27,13 @@ namespace DRAKaysaResende.Data
         public DbSet<PacientePlano> PacientePlanos { get; set; }
         public DbSet<PacienteProcedimento> PacienteProcedimentos { get; set; }
         public DbSet<UsuarioDoSistema> UsuariosdoSistema { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Topico> Topicos { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=DRAKaysaResende;User ID=sa;Password=root; TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=DRAKaysa;User ID=sa;Password=root; TrustServerCertificate=true");
             //optionsBuilder.LogTo(Console.WriteLine);
         }
 
@@ -44,6 +47,8 @@ namespace DRAKaysaResende.Data
             modelBuilder.ApplyConfiguration(new PacientePlanoMap());
             modelBuilder.ApplyConfiguration(new PacienteProcedimentoMap());
             modelBuilder.ApplyConfiguration(new UsuarioDoSistemaMap());
+            modelBuilder.ApplyConfiguration(new CardMap());
+            modelBuilder.ApplyConfiguration(new TopicoMap());
         }
     }
 }

@@ -2,8 +2,8 @@
 using DRAKaysa.Interfaces;
 using DRAKaysa.Services.Validators;
 using DRAKaysa.ViewModels;
-using DRAKaysaResende.Data;
-using DRAKaysaResende.Models;
+using DRAKaysa.Data;
+using DRAKaysa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

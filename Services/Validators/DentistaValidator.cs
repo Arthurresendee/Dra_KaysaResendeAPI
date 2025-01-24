@@ -1,5 +1,5 @@
-﻿using DRAKaysaResende.Data;
-using DRAKaysaResende.Models;
+﻿using DRAKaysa.Data;
+using DRAKaysa.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -34,10 +34,6 @@ namespace DRAKaysa.Services.Validators
             RuleFor(p => p.Email)
                 .NotEmpty().WithMessage("O Email é obrigatório.")
                 .EmailAddress().WithMessage("O Email deve ser válido.");
-
-            //RuleFor(p => p.Idade)
-            //    .GreaterThan(0).WithMessage("A Idade deve ser maior que 0.")
-            //    .LessThanOrEqualTo(120).WithMessage("A Idade deve ser menor ou igual a 120.");
 
             RuleFor(p => p.NumeroDeTelefone)
                 .NotEmpty().WithMessage("O Número de Telefone é obrigatório.")

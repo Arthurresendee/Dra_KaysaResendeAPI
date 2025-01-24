@@ -1,6 +1,6 @@
-﻿using DRAKaysaResende.Models.Enums;
+﻿using DRAKaysa.Models.Enums;
 
-namespace DRAKaysaResende.Models
+namespace DRAKaysa.Models
 {
     public class Plano
     {

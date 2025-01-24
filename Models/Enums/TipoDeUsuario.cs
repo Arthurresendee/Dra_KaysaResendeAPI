@@ -1,5 +1,5 @@
 ﻿
-namespace DRAKaysaResende.Models.Enums
+namespace DRAKaysa.Models.Enums
 {
     public enum TipoDeUsuario
     {

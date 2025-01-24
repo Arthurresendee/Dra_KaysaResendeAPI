@@ -2,7 +2,7 @@
 using DRAKaysa.Models.Enums;
 using System.Runtime.Serialization;
 
-namespace DRAKaysaResende.Models
+namespace DRAKaysa.Models
 {
     public class Paciente
     {

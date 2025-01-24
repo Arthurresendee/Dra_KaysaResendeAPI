@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DRAKaysaResende.Models
+namespace DRAKaysa.Models
 {
     public class Dentista
     {

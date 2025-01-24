@@ -1,4 +1,4 @@
-﻿namespace DRAKaysaResende.Models
+﻿namespace DRAKaysa.Models
 {
     public class PacientePlano
     {

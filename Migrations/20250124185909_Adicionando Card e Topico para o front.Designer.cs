@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRAKaysa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240912133251_first-migration")]
-    partial class firstmigration
+    [Migration("20250124185909_Adicionando Card e Topico para o front")]
+    partial class AdicionandoCardeTopicoparaofront
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace DRAKaysa.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DRAKaysa.Models.UsuarioDoSistema", b =>
+            modelBuilder.Entity("DRAKaysa.Models.Card", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,37 +33,24 @@ namespace DRAKaysa.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AcessoDeUsuario")
+                    b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("AcessoDeUsuario");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("NomeCompleto")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("NomeCompleto");
-
-                    b.Property<string>("Senha")
+                    b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar")
-                        .HasColumnName("Senha");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("TipoDeSexo")
-                        .HasColumnType("INT")
-                        .HasColumnName("TipoDeSexo");
-
-                    b.Property<int?>("TipoDeUsuario")
-                        .HasColumnType("INT")
-                        .HasColumnName("TipoDeUsuario");
+                    b.Property<int>("TopicoId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "AcessoDeUsuario" }, "IX_UsuarioDoSistema_AcessoDeUsuario")
-                        .IsUnique();
+                    b.HasIndex("TopicoId");
 
-                    b.ToTable("UsuariosDoSistema", (string)null);
+                    b.ToTable("Cards", (string)null);
                 });
 
             modelBuilder.Entity("DRAKaysa.Models.Dentista", b =>
@@ -333,7 +320,7 @@ namespace DRAKaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2024, 9, 12, 10, 32, 51, 220, DateTimeKind.Local).AddTicks(7718))
+                        .HasDefaultValue(new DateTime(2025, 1, 24, 15, 59, 8, 962, DateTimeKind.Local).AddTicks(4314))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")
@@ -382,6 +369,76 @@ namespace DRAKaysa.Migrations
                     b.ToTable("Procedimentos", (string)null);
                 });
 
+            modelBuilder.Entity("DRAKaysa.Models.Topico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topicos", (string)null);
+                });
+
+            modelBuilder.Entity("DRAKaysa.Models.UsuarioDoSistema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AcessoDeUsuario")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("AcessoDeUsuario");
+
+                    b.Property<string>("NomeCompleto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("NomeCompleto");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar")
+                        .HasColumnName("Senha");
+
+                    b.Property<int?>("TipoDeSexo")
+                        .HasColumnType("INT")
+                        .HasColumnName("TipoDeSexo");
+
+                    b.Property<int?>("TipoDeUsuario")
+                        .HasColumnType("INT")
+                        .HasColumnName("TipoDeUsuario");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "AcessoDeUsuario" }, "IX_UsuarioDoSistema_AcessoDeUsuario")
+                        .IsUnique();
+
+                    b.ToTable("UsuariosDoSistema", (string)null);
+                });
+
+            modelBuilder.Entity("DRAKaysa.Models.Card", b =>
+                {
+                    b.HasOne("DRAKaysa.Models.Topico", "Topico")
+                        .WithMany("Cards")
+                        .HasForeignKey("TopicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Topico");
+                });
+
             modelBuilder.Entity("DRAKaysa.Models.Dentista", b =>
                 {
                     b.HasOne("DRAKaysa.Models.Endereco", "Endereco")
@@ -396,7 +453,7 @@ namespace DRAKaysa.Migrations
             modelBuilder.Entity("DRAKaysa.Models.Paciente", b =>
                 {
                     b.HasOne("DRAKaysa.Models.Dentista", "Dentista")
-                        .WithMany("Pacientes")
+                        .WithMany()
                         .HasForeignKey("IdDentista")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -450,11 +507,6 @@ namespace DRAKaysa.Migrations
                     b.Navigation("Procedimento");
                 });
 
-            modelBuilder.Entity("DRAKaysa.Models.Dentista", b =>
-                {
-                    b.Navigation("Pacientes");
-                });
-
             modelBuilder.Entity("DRAKaysa.Models.Paciente", b =>
                 {
                     b.Navigation("PacientePlanos");
@@ -470,6 +522,11 @@ namespace DRAKaysa.Migrations
             modelBuilder.Entity("DRAKaysa.Models.Procedimento", b =>
                 {
                     b.Navigation("PacienteProcedimentos");
+                });
+
+            modelBuilder.Entity("DRAKaysa.Models.Topico", b =>
+                {
+                    b.Navigation("Cards");
                 });
 #pragma warning restore 612, 618
         }

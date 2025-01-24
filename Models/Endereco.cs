@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.Json.Serialization;
 
-namespace DRAKaysaResende.Models
+namespace DRAKaysa.Models
 {
     public class Endereco
     {

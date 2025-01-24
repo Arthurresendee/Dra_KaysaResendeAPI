@@ -1,5 +1,5 @@
 using DRAKaysa.Services.Validators;
-using DRAKaysaResende.Data;
+using DRAKaysa.Data;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +16,7 @@ builder.Services.AddCors(options =>
                                 .AllowAnyMethod();
                       });
 });
+
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
     {
@@ -25,6 +26,9 @@ builder.Services.AddControllers()
 
 builder.Services.AddScoped<EnderecoValidator>();
 builder.Services.AddScoped<DentistaValidator>();
+builder.Services.AddScoped<CardValidator>();
+builder.Services.AddScoped<TopicoValidator>();
+builder.Services.AddScoped<PacienteValidator>();
 builder.Services.AddDbContext<DataContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

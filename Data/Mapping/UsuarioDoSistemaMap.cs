@@ -1,5 +1,5 @@
 ﻿using DRAKaysa.Models;
-using DRAKaysaResende.Models;
+using DRAKaysa.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

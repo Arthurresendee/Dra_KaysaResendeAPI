@@ -1,8 +1,8 @@
 ﻿using DRAKaysa.Interfaces;
 using DRAKaysa.Models;
 using DRAKaysa.ViewModels;
-using DRAKaysaResende.Data;
-using DRAKaysaResende.Models;
+using DRAKaysa.Data;
+using DRAKaysa.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
