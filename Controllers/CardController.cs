@@ -92,11 +92,6 @@ namespace DRAKaysa.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Card card)
         {
-            if (id != card.Id)
-            {
-                return BadRequest("ID do Card não corresponde.");
-            }
-
             var existingCard = await _context.Cards.FindAsync(id);
             if (existingCard == null)
             {
