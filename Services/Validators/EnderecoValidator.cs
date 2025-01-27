@@ -1,5 +1,5 @@
-﻿using DRAKaysa.Data;
-using DRAKaysa.Models;
+﻿using drakaysa.Data;
+using drakaysa.Models;
 using FluentValidation;
 
 public class EnderecoValidator : AbstractValidator<Endereco>

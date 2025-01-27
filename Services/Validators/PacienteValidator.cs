@@ -1,10 +1,10 @@
-﻿using DRAKaysa.Data;
-using DRAKaysa.Models;
+﻿using drakaysa.Data;
+using drakaysa.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
-namespace DRAKaysa.Services.Validators
+namespace drakaysa.Services.Validators
 {
     public class PacienteValidator : AbstractValidator<Paciente>
     {

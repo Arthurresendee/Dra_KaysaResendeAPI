@@ -1,7 +1,7 @@
-﻿using DRAKaysa.Models;
+﻿using drakaysa.Models;
 using FluentValidation;
 
-namespace DRAKaysa.Services.Validators
+namespace drakaysa.Services.Validators
 {
     public class TopicoValidator : AbstractValidator<Topico>
     {

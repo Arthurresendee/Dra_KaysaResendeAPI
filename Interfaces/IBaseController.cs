@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DRAKaysa.Interfaces
+namespace drakaysa.Interfaces
 {
     public interface IBaseController<T>
     {

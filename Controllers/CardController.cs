@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DRAKaysa.Data;
-using DRAKaysa.Models;
-using DRAKaysa.ViewModels;
-using DRAKaysa.Extensions;
-using DRAKaysa.Interfaces;
+using drakaysa.Data;
+using drakaysa.Models;
+using drakaysa.ViewModels;
+using drakaysa.Extensions;
+using drakaysa.Interfaces;
 
-namespace DRAKaysa.Controllers
+namespace drakaysa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿using DRAKaysa.Models;
+﻿using drakaysa.Models;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DRAKaysa.Data.Mapping
+namespace drakaysa.Data.Mapping
 {
     public class EnderecoMap : IEntityTypeConfiguration<Endereco>
     {

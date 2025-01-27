@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DRAKaysa.Data;
-using DRAKaysa.Models;
-using DRAKaysa.ViewModels;
+using drakaysa.Data;
+using drakaysa.Models;
+using drakaysa.ViewModels;
 using Microsoft.IdentityModel.Tokens;
-using DRAKaysa.Services;
-using DRAKaysa.Services.Validators;
-using DRAKaysa.Interfaces;
-using DRAKaysa.Extensions;
+using drakaysa.Services;
+using drakaysa.Services.Validators;
+using drakaysa.Interfaces;
+using drakaysa.Extensions;
 
-namespace DRAKaysa.Controllers
+namespace drakaysa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿using DRAKaysa.Models;
+﻿using drakaysa.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DRAKaysa.Data.Mapping
+namespace drakaysa.Data.Mapping
 {
     public class PacienteProcedimentoMap : IEntityTypeConfiguration<PacienteProcedimento>
     {

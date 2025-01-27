@@ -1,8 +1,8 @@
 ﻿
-using DRAKaysa.Models.Enums;
+using drakaysa.Models.Enums;
 using System.Runtime.Serialization;
 
-namespace DRAKaysa.Models
+namespace drakaysa.Models
 {
     public class Paciente
     {

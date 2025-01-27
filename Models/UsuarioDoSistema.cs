@@ -1,7 +1,7 @@
-﻿using DRAKaysa.Models.Enums;
-using DRAKaysa.Models.Enums;
+﻿using drakaysa.Models.Enums;
+using drakaysa.Models.Enums;
 
-namespace DRAKaysa.Models
+namespace drakaysa.Models
 {
     public class UsuarioDoSistema
     {

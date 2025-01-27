@@ -1,4 +1,4 @@
-﻿namespace DRAKaysa.ViewModels
+﻿namespace drakaysa.ViewModels
 {
     public class LoginViewModel
     {

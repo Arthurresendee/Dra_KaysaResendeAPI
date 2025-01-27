@@ -1,6 +1,6 @@
-﻿ using DRAKaysa.Models;
+﻿ using drakaysa.Models;
 
-namespace DRAKaysa.Models
+namespace drakaysa.Models
 {
     public class Topico
     {

@@ -1,7 +1,5 @@
-﻿using DRAKaysa.Data.Mapping;
-using DRAKaysa.Models;
-using DRAKaysa.Data.Mapping;
-using DRAKaysa.Models;
+﻿using drakaysa.Data.Mapping;
+using drakaysa.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DRAKaysa.Data
+namespace drakaysa.Data
 {
     public class DataContext : DbContext
     {
@@ -33,7 +31,8 @@ namespace DRAKaysa.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=DRAKaysa;User ID=sa;Password=root; TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer("Server=db;Database=drakaysa;User ID=sa;Password=root; TrustServerCertificate=true");
+            //optionsBuilder.UseSqlServer("Server=localhost;Database=drakaysa;User ID=sa;Password=SuaNovaSenhaForte123; TrustServerCertificate=true");
             //optionsBuilder.LogTo(Console.WriteLine);
         }
 

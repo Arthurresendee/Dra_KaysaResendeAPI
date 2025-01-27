@@ -1,8 +1,8 @@
-﻿using DRAKaysa.Data;
-using DRAKaysa.Models;
+﻿using drakaysa.Data;
+using drakaysa.Models;
 using FluentValidation;
 
-namespace DRAKaysa.Services.Validators
+namespace drakaysa.Services.Validators
 {
     public class CardValidator : AbstractValidator<Card>
     {

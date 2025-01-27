@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace DRAKaysa.Extensions
+namespace drakaysa.Extensions
 {
     public static class ModelStateExtensions
     {

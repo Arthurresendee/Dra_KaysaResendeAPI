@@ -1,4 +1,4 @@
-﻿namespace DRAKaysa.Models.Enums
+﻿namespace drakaysa.Models.Enums
 {
     public enum TipoDeSexoEnum
     {

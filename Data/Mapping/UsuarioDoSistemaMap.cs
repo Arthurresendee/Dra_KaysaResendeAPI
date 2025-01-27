@@ -1,10 +1,10 @@
-﻿using DRAKaysa.Models;
-using DRAKaysa.Models;
+﻿using drakaysa.Models;
+using drakaysa.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DRAKaysa.Data.Mapping
+namespace drakaysa.Data.Mapping
 {
     public class UsuarioDoSistemaMap : IEntityTypeConfiguration<UsuarioDoSistema>
     {

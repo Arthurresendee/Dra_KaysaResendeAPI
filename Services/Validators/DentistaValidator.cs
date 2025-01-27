@@ -1,11 +1,11 @@
-﻿using DRAKaysa.Data;
-using DRAKaysa.Models;
+﻿using drakaysa.Data;
+using drakaysa.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop.Infrastructure;
 
-namespace DRAKaysa.Services.Validators
+namespace drakaysa.Services.Validators
 {
     public class DentistaValidator : AbstractValidator<Dentista>
     {

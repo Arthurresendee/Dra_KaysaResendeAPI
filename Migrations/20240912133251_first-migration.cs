@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DRAKaysa.Migrations
+namespace drakaysa.Migrations
 {
     /// <inheritdoc />
     public partial class firstmigration : Migration

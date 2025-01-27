@@ -1,0 +1,33 @@
+﻿version: '3.8'
+
+services:
+  # Serviço para a API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: drakaysa_api_image:latest  # Nome da imagem da API
+    container_name: drakaysa_api_container  # Nome do container da API
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=drakaysa;User ID=sa;Password=root;TrustServerCertificate=true
+    ports:
+      - "80:80"   # Expondo a porta da API
+    depends_on:
+      - db        # A API depende do banco de dados
+
+  # Serviço para o SQL Server
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: drakaysa_db_container  # Nome do container do banco de dados
+    environment:
+      - SA_PASSWORD=root    # Definindo a senha para o SQL Server
+      - ACCEPT_EULA=Y       # Aceitando os termos da licença
+    ports:
+      - "1433:1433"         # Expondo a porta do SQL Server
+    volumes:
+      - sql_data:/var/opt/mssql  # Persistência de dados no volume
+
+volumes:
+  sql_data:
+    driver: local
