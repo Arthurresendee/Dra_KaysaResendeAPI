@@ -31,10 +31,18 @@ namespace drakaysa.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=db;Database=drakaysa;User ID=sa;Password=root; TrustServerCertificate=true");
-            //optionsBuilder.UseSqlServer("Server=localhost;Database=drakaysa;User ID=sa;Password=SuaNovaSenhaForte123; TrustServerCertificate=true");
-            //optionsBuilder.LogTo(Console.WriteLine);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

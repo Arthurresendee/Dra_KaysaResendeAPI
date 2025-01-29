@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace drakaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class firstmigration : Migration
+    public partial class first_Migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,7 +40,7 @@ namespace drakaysa.Migrations
                     TipoDePlano = table.Column<int>(type: "INT", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
                     Coberturas = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
-                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2024, 9, 12, 10, 32, 51, 220, DateTimeKind.Local).AddTicks(7718)),
+                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2025, 1, 27, 16, 29, 44, 623, DateTimeKind.Local).AddTicks(8107)),
                     DataFinal = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
@@ -61,6 +61,19 @@ namespace drakaysa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Procedimentos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Topicos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TituloTopico = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topicos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,6 +117,27 @@ namespace drakaysa.Migrations
                         name: "FK_Dentistas_Enderecos_IdEndereco",
                         column: x => x.IdEndereco,
                         principalTable: "Enderecos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Texto = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    TopicoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cards_Topicos_TopicoId",
+                        column: x => x.TopicoId,
+                        principalTable: "Topicos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -194,6 +228,11 @@ namespace drakaysa.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cards_TopicoId",
+                table: "Cards",
+                column: "TopicoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_dentista_CPF",
                 table: "Dentistas",
                 column: "CPF",
@@ -251,6 +290,9 @@ namespace drakaysa.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Cards");
+
+            migrationBuilder.DropTable(
                 name: "PacientePlanos");
 
             migrationBuilder.DropTable(
@@ -258,6 +300,9 @@ namespace drakaysa.Migrations
 
             migrationBuilder.DropTable(
                 name: "UsuariosDoSistema");
+
+            migrationBuilder.DropTable(
+                name: "Topicos");
 
             migrationBuilder.DropTable(
                 name: "Planos");
