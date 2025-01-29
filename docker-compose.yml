@@ -6,27 +6,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: drakaysa_api_image:latest  # Nome da imagem da API
-    container_name: drakaysa_api_container  # Nome do container da API
+    image: drakaysa_api_image:latest 
+    container_name: drakaysa_api_container
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__DefaultConnection=Server=db,1433;Database=drakaysa;User ID=sa;Password=SuaSenhaForte123;TrustServerCertificate=true
     ports:
-      - "80:80"   # Expondo a porta da API
+      - "80:80"
     depends_on:
-      - db        # A API depende do banco de dados
+      - db
 
-  # Serviço para o SQL Server
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: drakaysa_db_container  # Nome do container do banco de dados
+    container_name: drakaysa_db_container
     environment:
-      - SA_PASSWORD=SuaSenhaForte123    # Definindo a senha para o SQL Server
-      - ACCEPT_EULA=Y       # Aceitando os termos da licença
+      - SA_PASSWORD=SuaSenhaForte123
+      - ACCEPT_EULA=Y
     ports:
-      - "1433:1433"         # Expondo a porta do SQL Server
+      - "1433:1433"
     volumes:
-      - sql_data:/var/opt/mssql  # Persistência de dados no volume
+      - sql_data:/var/opt/mssql
 
 volumes:
   sql_data:

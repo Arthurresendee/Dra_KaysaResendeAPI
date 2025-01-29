@@ -1,5 +1,4 @@
 **/.classpath
-**/.dockerignore
 **/.env
 **/.git
 **/.gitignore
@@ -14,7 +13,6 @@
 **/azds.yaml
 **/bin
 **/charts
-**/docker-compose*
 **/node_modules
 **/npm-debug.log
 **/obj
@@ -27,3 +25,5 @@ README.md
 !.git/config
 !.git/packed-refs
 !.git/refs/heads/**
+*/build*
+*/*/build*
