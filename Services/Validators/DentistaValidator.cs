@@ -1,9 +1,6 @@
 ﻿using drakaysa.Data;
 using drakaysa.Models;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.JSInterop.Infrastructure;
 
 namespace drakaysa.Services.Validators
 {

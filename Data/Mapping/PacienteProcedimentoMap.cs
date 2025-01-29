@@ -1,11 +1,6 @@
 ﻿using drakaysa.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace drakaysa.Data.Mapping
 {
@@ -15,7 +10,7 @@ namespace drakaysa.Data.Mapping
         {
             builder.ToTable("PacienteProcedimentos");
 
-            builder.HasKey(x => new {x.IdPaciente, x.IdProcedimento});
+            builder.HasKey(x => new { x.IdPaciente, x.IdProcedimento });
 
             builder.Property(x => x.IdPaciente)
                 .IsRequired();

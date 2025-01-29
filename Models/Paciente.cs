@@ -1,6 +1,5 @@
 ﻿
 using drakaysa.Models.Enums;
-using System.Runtime.Serialization;
 
 namespace drakaysa.Models
 {

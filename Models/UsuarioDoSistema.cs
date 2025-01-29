@@ -1,5 +1,4 @@
 ﻿using drakaysa.Models.Enums;
-using drakaysa.Models.Enums;
 
 namespace drakaysa.Models
 {

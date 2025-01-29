@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using drakaysa.Data;
-using drakaysa.Models;
-using drakaysa.ViewModels;
+﻿using drakaysa.Data;
 using drakaysa.Extensions;
 using drakaysa.Interfaces;
+using drakaysa.Models;
+using drakaysa.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace drakaysa.Controllers
 {

@@ -1,13 +1,9 @@
-﻿using drakaysa.Interfaces;
+﻿using drakaysa.Data;
+using drakaysa.Interfaces;
 using drakaysa.Models;
-using drakaysa.ViewModels;
-using drakaysa.Data;
-using drakaysa.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Drawing.Text;
 
 namespace drakaysa.Controllers
 {

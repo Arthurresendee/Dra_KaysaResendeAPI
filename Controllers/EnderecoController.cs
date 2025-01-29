@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using drakaysa.Data;
+﻿using drakaysa.Data;
+using drakaysa.Extensions;
+using drakaysa.Interfaces;
 using drakaysa.Models;
 using drakaysa.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using drakaysa.Services;
-using drakaysa.Services.Validators;
-using drakaysa.Interfaces;
-using drakaysa.Extensions;
 
 namespace drakaysa.Controllers
 {
@@ -47,7 +40,7 @@ namespace drakaysa.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500,new ResultViewModel<List<Endereco>>("Falha interna no servidor - rCeP3_N_GUSa_BySsd5ZfA,"));
+                return StatusCode(500, new ResultViewModel<List<Endereco>>("Falha interna no servidor - rCeP3_N_GUSa_BySsd5ZfA,"));
             }
         }
 
@@ -91,7 +84,7 @@ namespace drakaysa.Controllers
                 return CreatedAtAction("GetById", new { id = endereco.Id }, endereco);
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return StatusCode(500, new ResultViewModel<Endereco>("Falha interna no servidor - 38FS-AlzGkqL43pULxAXMw,"));
             }
@@ -99,7 +92,7 @@ namespace drakaysa.Controllers
 
         //api/Endereco/id
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody]Endereco endereco)
+        public async Task<ActionResult> Put(int id, [FromBody] Endereco endereco)
         {
             var end = await _context.Enderecos.FindAsync(id);
             if (end == null)

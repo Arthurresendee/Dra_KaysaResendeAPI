@@ -4,7 +4,7 @@ namespace drakaysa.Models
 {
     public class Procedimento
     {
-        public Procedimento(){}
+        public Procedimento() { }
 
         public int Id { get; set; }
         public string Titulo { get; set; }

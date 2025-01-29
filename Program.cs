@@ -1,8 +1,7 @@
-using drakaysa.Services.Validators;
 using drakaysa.Data;
+using drakaysa.Services.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 

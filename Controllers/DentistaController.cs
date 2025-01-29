@@ -1,9 +1,9 @@
-﻿using drakaysa.Extensions;
+﻿using drakaysa.Data;
+using drakaysa.Extensions;
 using drakaysa.Interfaces;
+using drakaysa.Models;
 using drakaysa.Services.Validators;
 using drakaysa.ViewModels;
-using drakaysa.Data;
-using drakaysa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +31,7 @@ namespace drakaysa.Controllers
                     .OrderByDescending(x => x.Id)
                     .ToListAsync();
 
-                if(dentistas == null || !dentistas.Any())
+                if (dentistas == null || !dentistas.Any())
                 {
                     return NotFound(new ResultViewModel<List<Dentista>>("Não foi encontrado nenhum dentista"));
                 }
@@ -81,7 +81,7 @@ namespace drakaysa.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(300,new ResultViewModel<List<Dentista>>("Falha interna no servidor - Icgi5_Bo206_xUFjQuNToA,"));
+                return StatusCode(300, new ResultViewModel<List<Dentista>>("Falha interna no servidor - Icgi5_Bo206_xUFjQuNToA,"));
             }
         }
 

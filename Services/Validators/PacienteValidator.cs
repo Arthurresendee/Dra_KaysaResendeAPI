@@ -1,8 +1,6 @@
 ﻿using drakaysa.Data;
 using drakaysa.Models;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace drakaysa.Services.Validators
 {

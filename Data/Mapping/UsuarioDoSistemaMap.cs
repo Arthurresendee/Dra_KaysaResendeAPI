@@ -1,7 +1,5 @@
 ﻿using drakaysa.Models;
-using drakaysa.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace drakaysa.Data.Mapping
