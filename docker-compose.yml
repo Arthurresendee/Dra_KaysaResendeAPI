@@ -4,17 +4,18 @@ services:
   # Serviço para a API
   api:
     build:
-      context: .
-      dockerfile: Dockerfile
-    image: drakaysa_api_image:latest 
-    container_name: drakaysa_api_container
+      context: .   # Define o contexto de build
+      dockerfile: Dockerfile  # Especifica o Dockerfile
+    image: drakaysa_api_image:latest  # Nome da imagem para a API
+    container_name: drakaysa_api_container  # Nome do container
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=drakaysa;User ID=sa;Password=SuaSenhaForte123;TrustServerCertificate=true
+      # Substitua pela string de conexão do seu banco de dados no Heroku ou externo
+      - ConnectionStrings__DefaultConnection=Server=db;Database=drakaysa;User ID=sa;Password=SuaSenhaForte123;TrustServerCertificate=true
     ports:
-      - "80:80"
-    depends_on:
-      - db
+      - "80:80"  # Define a porta 80 para o container
+    # Removido o 'depends_on' já que o banco de dados é externo
+
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
