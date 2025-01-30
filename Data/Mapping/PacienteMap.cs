@@ -13,8 +13,7 @@ namespace drakaysa.Data.Mapping
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .ValueGeneratedOnAdd()
-                .UseIdentityColumn(1, 1);
+                .ValueGeneratedOnAdd();
 
             builder.Property(x => x.Nome)
                 .HasColumnName("Nome")

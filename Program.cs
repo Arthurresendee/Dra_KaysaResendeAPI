@@ -32,7 +32,7 @@ builder.Services.AddScoped<TopicoValidator>();
 builder.Services.AddScoped<PacienteValidator>();
 
 builder.Services.AddDbContext<DataContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

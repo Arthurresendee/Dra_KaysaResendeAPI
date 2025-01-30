@@ -13,8 +13,7 @@ namespace drakaysa.Data.Mapping
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
-                .UseIdentityColumn();
+                .ValueGeneratedOnAdd();
 
             builder.Property(e => e.CEP)
                 .HasColumnName("CEP")

@@ -5,7 +5,6 @@ using drakaysa.Models;
 using drakaysa.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace drakaysa.Controllers
 {
@@ -32,7 +31,7 @@ namespace drakaysa.Controllers
                     .OrderByDescending(x => x.Id)
                     .ToListAsync();
 
-                if (enderecos.IsNullOrEmpty())
+                if (!enderecos.Any())
                 {
                     return NotFound(new ResultViewModel<List<Endereco>>("Não foi encontrado nenhum Endereço"));
                 }

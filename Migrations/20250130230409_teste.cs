@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace drakaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class first_Migration : Migration
+    public partial class teste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,15 +15,15 @@ namespace drakaysa.Migrations
                 name: "Enderecos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CEP = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    Rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Numero = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Bairro = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CEP = table.Column<string>(type: "nvarchar", maxLength: 8, nullable: false),
+                    Rua = table.Column<string>(type: "nvarchar", maxLength: 100, nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar", maxLength: 100, nullable: false),
+                    Bairro = table.Column<string>(type: "nvarchar", maxLength: 50, nullable: false),
+                    Cidade = table.Column<string>(type: "nvarchar", maxLength: 50, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,13 +34,13 @@ namespace drakaysa.Migrations
                 name: "Planos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Titulo = table.Column<string>(type: "varchar", maxLength: 200, nullable: true),
                     TipoDePlano = table.Column<int>(type: "INT", nullable: false),
-                    Descricao = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    Coberturas = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
-                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2025, 1, 27, 16, 29, 44, 623, DateTimeKind.Local).AddTicks(8107)),
+                    Descricao = table.Column<string>(type: "varchar", maxLength: 300, nullable: true),
+                    Coberturas = table.Column<string>(type: "varchar", maxLength: 200, nullable: true),
+                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2025, 1, 30, 20, 4, 8, 603, DateTimeKind.Local).AddTicks(8706)),
                     DataFinal = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
@@ -51,11 +52,11 @@ namespace drakaysa.Migrations
                 name: "Procedimentos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Titulo = table.Column<string>(type: "varchar", maxLength: 200, nullable: true),
                     TipoDeProcedimento = table.Column<int>(type: "INT", nullable: false),
-                    Descricao = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
+                    Descricao = table.Column<string>(type: "varchar", maxLength: 300, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,9 +67,9 @@ namespace drakaysa.Migrations
                 name: "Topicos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TituloTopico = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TituloTopico = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,12 +80,12 @@ namespace drakaysa.Migrations
                 name: "UsuariosDoSistema",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     TipoDeUsuario = table.Column<int>(type: "INT", nullable: true),
-                    AcessoDeUsuario = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Senha = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    NomeCompleto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AcessoDeUsuario = table.Column<string>(type: "nvarchar", maxLength: 50, nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar", maxLength: 50, nullable: false),
+                    NomeCompleto = table.Column<string>(type: "nvarchar", maxLength: 200, nullable: true),
                     TipoDeSexo = table.Column<int>(type: "INT", nullable: true)
                 },
                 constraints: table =>
@@ -96,16 +97,16 @@ namespace drakaysa.Migrations
                 name: "Dentistas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    SobreNome = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "nvarchar", maxLength: 200, nullable: false),
+                    SobreNome = table.Column<string>(type: "nvarchar", maxLength: 200, nullable: false),
+                    CPF = table.Column<string>(type: "nvarchar", maxLength: 11, nullable: false),
                     DataDeNascimento = table.Column<DateTime>(type: "Date", nullable: true),
                     Idade = table.Column<int>(type: "INT", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    NumeroDeTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    NumeroDeRegistro = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar", maxLength: 50, nullable: false),
+                    NumeroDeTelefone = table.Column<string>(type: "nvarchar", maxLength: 15, nullable: false),
+                    NumeroDeRegistro = table.Column<string>(type: "nvarchar", maxLength: 9, nullable: false),
                     Especialização = table.Column<string>(type: "TEXT", nullable: false),
                     IdEndereco = table.Column<int>(type: "INT", nullable: false)
                 },
@@ -124,11 +125,11 @@ namespace drakaysa.Migrations
                 name: "Cards",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Texto = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    TopicoId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Titulo = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Texto = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    TopicoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,17 +146,17 @@ namespace drakaysa.Migrations
                 name: "Pacientes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "varchar", maxLength: 200, nullable: true),
                     Sexo = table.Column<int>(type: "int", nullable: true),
                     DataDeNascimento = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true, defaultValue: "00000000000"),
-                    RG = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    NumeroDeTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Telefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Whatsapp = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    CPF = table.Column<string>(type: "nvarchar", maxLength: 11, nullable: true, defaultValue: "00000000000"),
+                    RG = table.Column<string>(type: "nvarchar", maxLength: 20, nullable: true),
+                    NumeroDeTelefone = table.Column<string>(type: "nvarchar", maxLength: 15, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar", maxLength: 100, nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar", maxLength: 15, nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar", maxLength: 15, nullable: true),
                     IdDentista = table.Column<int>(type: "INT", nullable: false),
                     IdEndereco = table.Column<int>(type: "INT", nullable: false)
                 },
@@ -179,8 +180,8 @@ namespace drakaysa.Migrations
                 name: "PacientePlanos",
                 columns: table => new
                 {
-                    IdPaciente = table.Column<int>(type: "int", nullable: false),
-                    IdPlano = table.Column<int>(type: "int", nullable: false),
+                    IdPaciente = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdPlano = table.Column<int>(type: "INTEGER", nullable: false),
                     PlanoAtivo = table.Column<bool>(type: "BIT", nullable: false)
                 },
                 constraints: table =>
@@ -204,10 +205,10 @@ namespace drakaysa.Migrations
                 name: "PacienteProcedimentos",
                 columns: table => new
                 {
-                    IdPaciente = table.Column<int>(type: "int", nullable: false),
-                    IdProcedimento = table.Column<int>(type: "int", nullable: false),
+                    IdPaciente = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdProcedimento = table.Column<int>(type: "INTEGER", nullable: false),
                     DataProcedimento = table.Column<DateTime>(type: "SMALLDATETIME", nullable: false),
-                    ProcedimentoRealizado = table.Column<bool>(type: "bit", nullable: false)
+                    ProcedimentoRealizado = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

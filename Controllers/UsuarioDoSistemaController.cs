@@ -3,7 +3,6 @@ using drakaysa.Interfaces;
 using drakaysa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace drakaysa.Controllers
 {
@@ -25,7 +24,7 @@ namespace drakaysa.Controllers
             try
             {
                 var usuarios = await _context.UsuariosdoSistema.ToListAsync();
-                if (usuarios.IsNullOrEmpty())
+                if (!usuarios.Any())
                 {
                     return NotFound("Não foi encontrado nenhum usuário");
                 }

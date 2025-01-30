@@ -13,8 +13,7 @@ namespace drakaysa.Data.Mapping
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .ValueGeneratedOnAdd()
-                .UseIdentityColumn();
+                .ValueGeneratedOnAdd();
 
             builder.Property(e => e.TipoDeUsuario)
                 .HasColumnName("TipoDeUsuario")
