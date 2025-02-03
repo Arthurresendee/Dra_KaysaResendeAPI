@@ -1,4 +1,3 @@
-
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -7,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["drakaysa.csproj", "."]
+COPY ["*.csproj", "./"]
 RUN dotnet restore "./drakaysa.csproj"
 
 COPY . .
@@ -21,5 +20,10 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# Criar diretório para o banco SQLite com permissões adequadas
 RUN mkdir -p /app/Data && chmod -R 777 /app/Data
+
+# Corrigir permissões para o SQLite
+RUN touch /app/app.db && chmod 777 /app/app.db
+
 ENTRYPOINT ["dotnet", "drakaysa.dll"]

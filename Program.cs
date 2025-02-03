@@ -43,16 +43,17 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<DataContext>();
 
-        if (!context.Database.CanConnect())
+        try
         {
             context.Database.Migrate();
             SeedData(context);
             Console.WriteLine("Banco de dados migrado e dados iniciais inseridos.");
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine("Banco de dados já existe. Migração ignorada.");
+            Console.WriteLine($"Erro ao verificar/aplicar as migrations: {ex.Message}");
         }
+
     }
     catch (Exception ex)
     {
@@ -70,7 +71,8 @@ app.Run();
 // Método para inserir os dados iniciais no banco
 void SeedData(DataContext context)
 {
-    if (!context.Topicos.Any()) // Verifica se já existem registros
+    Console.WriteLine($"Verificando dados na tabela Topicos: {context.Topicos.Count()} registros encontrados.");
+    if (!context.Topicos.Any())
     {
         var topicos = new List<Topico>
         {
@@ -100,7 +102,12 @@ void SeedData(DataContext context)
         context.SaveChanges();
         Console.WriteLine("Dados iniciais inseridos com sucesso!");
     }
+    else
+    {
+        Console.WriteLine("Tabela já contém dados. Nenhum dado foi inserido.");
+    }
 }
+
 
 
 

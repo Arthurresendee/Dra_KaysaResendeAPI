@@ -302,7 +302,7 @@ namespace drakaysa.Migrations
                     b.Property<DateTime>("DataInicial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
-                        .HasDefaultValue(new DateTime(2025, 1, 30, 20, 4, 8, 603, DateTimeKind.Local).AddTicks(8706))
+                        .HasDefaultValue(new DateTime(2025, 1, 31, 19, 42, 22, 815, DateTimeKind.Local).AddTicks(5474))
                         .HasColumnName("DataInicial");
 
                     b.Property<string>("Descricao")

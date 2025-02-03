@@ -1,1 +1,12 @@
-﻿Arrumar o retorno dos erros nas requisições.
+﻿Criação das images e container
+
+docker build -t <nome-da-image>:<tag> .  (Significa que vamos criar uma image como o nome drakaysa. O -t signifca que vamo atruir uma tag para essa image, e o :dev é o nome da tag.)
+docker run -d --name <nome-do-container> -p 8080:80 drakaysa:dev   (Significa que estamos criando o container com o nome drakaysa_api_container e a partir da image <nome-da-image>:<tag>)
+
+docker stop <nome-do-container>  (Para parar um container)
+docker start <nome-do-container>  (Para iniciar um container)
+
+docker rm <nome-do-container> Para remover um container:
+
+docker exec -it drakaysa_api_container /bin/sh  (entrar no container da api)
+dotnet drakaysa.dll --environment Development  (Dentro do container, rodar o .NET Debugger manualmente:)

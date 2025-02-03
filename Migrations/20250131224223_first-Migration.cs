@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace drakaysa.Migrations
 {
     /// <inheritdoc />
-    public partial class teste : Migration
+    public partial class firstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,7 +40,7 @@ namespace drakaysa.Migrations
                     TipoDePlano = table.Column<int>(type: "INT", nullable: false),
                     Descricao = table.Column<string>(type: "varchar", maxLength: 300, nullable: true),
                     Coberturas = table.Column<string>(type: "varchar", maxLength: 200, nullable: true),
-                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2025, 1, 30, 20, 4, 8, 603, DateTimeKind.Local).AddTicks(8706)),
+                    DataInicial = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValue: new DateTime(2025, 1, 31, 19, 42, 22, 815, DateTimeKind.Local).AddTicks(5474)),
                     DataFinal = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
