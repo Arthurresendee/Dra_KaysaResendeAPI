@@ -21,6 +21,8 @@ namespace drakaysa.Data
         public DbSet<UsuarioDoSistema> UsuariosdoSistema { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<Topico> Topicos { get; set; }
+        public DbSet<Imagem> Imagens { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

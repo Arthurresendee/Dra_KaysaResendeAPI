@@ -1,7 +1,39 @@
-﻿Criação das images e container
+﻿{
+	2. Construir a imagem
+	No diretório onde está o seu Dockerfile, execute:
 
-docker build -t <nome-da-image>:<tag> .  (Significa que vamos criar uma image como o nome drakaysa. O -t signifca que vamo atruir uma tag para essa image, e o :dev é o nome da tag.)
-docker run -d --name <nome-do-container> -p 8080:80 drakaysa:dev   (Significa que estamos criando o container com o nome drakaysa_api_container e a partir da image <nome-da-image>:<tag>)
+	docker build -t drakaysa_api_image:dev .
+
+	Esse comando irá construir a imagem com o nome drakaysa_api_image e tag dev.
+}
+==============================================================================================================================================
+{
+	3. Subir o container com a porta desejada
+	Para que a sua aplicação rode na porta 5200 (internamente e externamente), utilize:
+
+	docker run -d -p 5200:5200 --name drakaysa_api_container -e ASPNETCORE_URLS="http://0.0.0.0:5200" drakaysa_api_image:dev
+
+	Explicação dos parâmetros:
+	-d: Executa o container em segundo plano (detached).
+	-p 5200:5200: Mapeia a porta 5200 do host para a porta 5200 do container.
+	--name drakaysa_api_container: Define o nome do container.
+	-e ASPNETCORE_URLS="http://0.0.0.0:5200": Define a variável de ambiente para que a aplicação escute na porta 5200.
+	drakaysa_api_image:dev: Especifica a imagem que será usada.
+
+
+
+	4. Subir o container com a porta padrão interna (80), você pode usar:
+
+	docker run -d -p 80:80 --name drakaysa_api_container drakaysa_api_image:dev
+
+	Isso fará com que sua aplicação, que por padrão ou pelo que está configurado no Dockerfile, escute na porta 80 dentro do container, e ela será acessível via http://localhost/api/card (ou http://localhost:80/api/card).
+
+}
+
+
+
+
+
 
 docker stop <nome-do-container>  (Para parar um container)
 docker start <nome-do-container>  (Para iniciar um container)
