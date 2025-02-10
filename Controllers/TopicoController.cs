@@ -5,6 +5,7 @@ using drakaysa.Models;
 using drakaysa.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace drakaysa.Controllers
 {
@@ -29,6 +30,8 @@ namespace drakaysa.Controllers
                     .Include(t => t.Cards)
                     .OrderByDescending(x => x.Id)
                     .ToListAsync();
+
+                Console.WriteLine(JsonSerializer.Serialize(topicos));
 
                 if (!topicos.Any())
                 {

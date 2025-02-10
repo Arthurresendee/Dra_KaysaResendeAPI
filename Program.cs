@@ -19,11 +19,16 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers()
+    
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
     })
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>())
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+    });
 
 builder.Services.AddScoped<EnderecoValidator>();
 builder.Services.AddScoped<DentistaValidator>();
