@@ -15,7 +15,6 @@ namespace drakaysa.Data.Mapping
             builder.Property(d => d.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasKey(c => c.Id);
             builder.Property(c => c.Titulo)
                 .HasMaxLength(100)
                 .IsRequired();
@@ -27,6 +26,8 @@ namespace drakaysa.Data.Mapping
                    .WithMany(t => t.Cards)
                    .HasForeignKey(c => c.TopicoId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(d => d.Id).IsUnique();
         }
     }
 }
