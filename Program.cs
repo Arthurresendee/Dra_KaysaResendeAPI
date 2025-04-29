@@ -7,22 +7,27 @@ using Microsoft.EntityFrameworkCore;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configuração do CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
     policy => {
         policy.WithOrigins(
-            "http://localhost:5173", // Front-end local
+            "http://localhost:5173", // Front-end local (porta correta do Vite)
+            "http://localhost:5174", // Porta alternativa
             "https://web-production-05c5f.up.railway.app" // URL de produção
         )
         .AllowAnyHeader()
         .AllowAnyMethod()
-        .AllowCredentials();
+        .AllowCredentials()
+        .SetIsOriginAllowed(origin => true) // Permite qualquer origem durante o desenvolvimento
+        .SetPreflightMaxAge(TimeSpan.FromMinutes(10)); // Cache das opções preflight
     });
 });
 
+// Configuração dos controllers e validação
 builder.Services.AddControllers()
-    
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
@@ -33,35 +38,29 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
     });
 
+// Registro dos validadores
 builder.Services.AddScoped<EnderecoValidator>();
 builder.Services.AddScoped<DentistaValidator>();
 builder.Services.AddScoped<CardValidator>();
 builder.Services.AddScoped<TopicoValidator>();
 builder.Services.AddScoped<PacienteValidator>();
 
+// Configuração do banco de dados
 builder.Services.AddDbContext<DataContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
+// Aplicação das migrations e seed data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<DataContext>();
-
-        try
-        {
-            context.Database.Migrate();
-            SeedData(context);
-            Console.WriteLine("Banco de dados migrado e dados iniciais inseridos.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Erro ao verificar/aplicar as migrations: {ex.Message}");
-        }
-
+        context.Database.Migrate();
+        SeedData(context);
+        Console.WriteLine("Banco de dados migrado e dados iniciais inseridos.");
     }
     catch (Exception ex)
     {
@@ -69,9 +68,9 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-
+// Middleware pipeline
 app.UseHttpsRedirection();
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(MyAllowSpecificOrigins); // CORS deve vir antes de MapControllers
 app.MapControllers();
 
 app.Run();
@@ -115,7 +114,3 @@ void SeedData(DataContext context)
         Console.WriteLine("Tabela já contém dados. Nenhum dado foi inserido.");
     }
 }
-
-
-
-
