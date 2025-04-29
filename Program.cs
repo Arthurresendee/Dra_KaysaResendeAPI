@@ -11,11 +11,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
     policy => {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins(
+            "http://localhost:5173", // Front-end local
+            "https://web-production-05c5f.up.railway.app" // URL de produÃ§Ã£o
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
     });
-
 });
 
 builder.Services.AddControllers()
@@ -73,7 +76,7 @@ app.MapControllers();
 
 app.Run();
 
-// Método para inserir os dados iniciais no banco
+// MÃ©todo para inserir os dados iniciais no banco
 void SeedData(DataContext context)
 {
     Console.WriteLine($"Verificando dados na tabela Topicos: {context.Topicos.Count()} registros encontrados.");
@@ -83,12 +86,12 @@ void SeedData(DataContext context)
         {
             new Topico
             {
-                TituloTopico = "Benefícios",
+                TituloTopico = "BenefÃ­cios",
                 Cards = new List<Card>
                 {
-                    new Card { Titulo = "Melhora Estética", Texto = "Transforma a aparência dos dentes, corrigindo imperfeições como manchas, descolorações, desgastes, espaçamentos e desalinhamentos leves." },
-                    new Card { Titulo = "Procedimento menos invasivo", Texto = "Diferente das facetas de porcelana, as facetas em resina podem ser aplicadas com mínimo ou nenhum desgaste da estrutura dental natural." },
-                    new Card { Titulo = "Estética natural", Texto = "As facetas em resina proporcionam uma aparência altamente natural, reproduzindo com precisão a translucidez, o brilho e a cor dos dentes, garantindo um sorriso harmonioso e autêntico." }
+                    new Card { Titulo = "Melhora EstÃ©tica", Texto = "Transforma a aparÃªncia dos dentes, corrigindo imperfeiÃ§Ãµes como manchas, descoloraÃ§Ãµes, desgastes, espaÃ§amentos e desalinhamentos leves." },
+                    new Card { Titulo = "Procedimento menos invasivo", Texto = "Diferente das facetas de porcelana, as facetas em resina podem ser aplicadas com mÃ­nimo ou nenhum desgaste da estrutura dental natural." },
+                    new Card { Titulo = "EstÃ©tica natural", Texto = "As facetas em resina proporcionam uma aparÃªncia altamente natural, reproduzindo com precisÃ£o a translucidez, o brilho e a cor dos dentes, garantindo um sorriso harmonioso e autÃªntico." }
                 }
             },
             new Topico
@@ -96,9 +99,9 @@ void SeedData(DataContext context)
                 TituloTopico = "Perguntas Frequentes",
                 Cards = new List<Card>
                 {
-                    new Card { Titulo = "Quanto tempo dura o tratamento?", Texto = "Para facetas de resina, o procedimento dura cerca de 5 horas, pois cada dente é esculpido à mão com muita precisão e delicadeza." },
-                    new Card { Titulo = "As facetas são resistentes?", Texto = "Sim, porém, é importante evitar hábitos como roer unhas, morder objetos duros e ranger os dentes, pois esses comportamentos podem comprometer a durabilidade." },
-                    new Card { Titulo = "Qual é o custo do procedimento?", Texto = "O custo varia do número de dentes e da complexidade do caso. A melhor forma de determinar o valor é agendar uma consulta para avaliar as suas necessidades." }
+                    new Card { Titulo = "Quanto tempo dura o tratamento?", Texto = "Para facetas de resina, o procedimento dura cerca de 5 horas, pois cada dente Ã© esculpido Ã  mÃ£o com muita precisÃ£o e delicadeza." },
+                    new Card { Titulo = "As facetas sÃ£o resistentes?", Texto = "Sim, porÃ©m, Ã© importante evitar hÃ¡bitos como roer unhas, morder objetos duros e ranger os dentes, pois esses comportamentos podem comprometer a durabilidade." },
+                    new Card { Titulo = "Qual Ã© o custo do procedimento?", Texto = "O custo varia do nÃºmero de dentes e da complexidade do caso. A melhor forma de determinar o valor Ã© agendar uma consulta para avaliar as suas necessidades." }
                 }
             }
         };
@@ -109,7 +112,7 @@ void SeedData(DataContext context)
     }
     else
     {
-        Console.WriteLine("Tabela já contém dados. Nenhum dado foi inserido.");
+        Console.WriteLine("Tabela jÃ¡ contÃ©m dados. Nenhum dado foi inserido.");
     }
 }
 
